@@ -10,8 +10,16 @@
 <helmet data-dc-atomics=""><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"><style>
 html,body{margin:0;padding:0;background:#F4F3EF;color:#111415;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 *{box-sizing:border-box}
-a{color:#111415;text-decoration:none}
-a:hover{color:#111415;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#FF7900;text-decoration-thickness:2px}
+a{color:#111415;text-decoration:none;transition:color .18s ease,background-color .18s ease,border-color .18s ease,text-decoration-color .18s ease}
+a:hover{color:#FF7900;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#FF7900;text-decoration-thickness:2px}
+a[style*="border-radius"]{text-decoration:none}
+a[style*="border-radius"]:hover{text-decoration:none}
+a[style*="border:1px solid #6E7679"]:hover{color:#FFFFFF;border-color:#FF7900}
+button{transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+[data-reveal][data-reveal-mode="fade"]{transform:none}
+[data-reveal="in"]{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){[data-reveal],[data-reveal="in"]{opacity:1;transform:none;transition:none}}
 :focus-visible{outline:2px solid #FF7900;outline-offset:2px}
 .exp-row{display:flex;flex-wrap:wrap}
 .exp-scene{flex:64 1 420px;min-width:0;border-right:1px solid #E6E8E6}
@@ -21,6 +29,18 @@ a:hover{color:#111415;text-decoration:underline;text-underline-offset:3px;text-d
 .tl-steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
 @media(max-width:900px){.exp-scene{flex:100 1 100%;border-right:none;border-bottom:1px solid #E6E8E6}.exp-panel{flex:100 1 100%}.exp-view{aspect-ratio:4/3;min-height:300px}}
 @media(max-width:760px){.tl-name{display:none}}
+.ft-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) minmax(0,1fr)}
+.ft-nav{display:grid;grid-template-columns:minmax(0,1fr)}
+.ft-base{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center}
+@media(max-width:900px){.ft-top{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.ft-top{grid-template-columns:minmax(0,1fr)}.ft-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cmp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:880px){.cmp-grid{grid-template-columns:minmax(0,1fr)}}
+.dim-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:1060px){.dim-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.dim-grid{grid-template-columns:minmax(0,1fr)}}
+.scope-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:760px){.scope-grid{grid-template-columns:minmax(0,1fr)}}
 .proc-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
 @media(max-width:1120px){.proc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){.proc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -132,7 +152,7 @@ a:hover{color:#111415;text-decoration:underline;text-underline-offset:3px;text-d
 <section id="como-funciona" ref="{{ animRef }}" style="background:#FFFFFF;border-top:1px solid #D8DCDE;border-bottom:1px solid #D8DCDE">
 <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
 <p style="margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.16em;color:#111415">COMO FUNCIONA</p>
-<h2 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:24ch;text-wrap:pretty">Do projeto convencional ao pavimento industrializado.</h2>
+<h2 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:24ch;text-wrap:pretty">Como o Sistema Integrado de Pavimento Industrializado se integra a sua obra.</h2>
 <p style="margin:0 0 clamp(30px,3.8vw,48px);font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:76ch;text-wrap:pretty">Percorra cada etapa e veja como projeto, compatibilização, modulação, instalações incorporadas, produção e montagem se conectam no Sistema SIPI.</p>
 
 <div style="border:1px solid #E6E8E6;border-radius:6px;overflow:hidden;background:#FFFFFF">
@@ -203,27 +223,111 @@ a:hover{color:#111415;text-decoration:underline;text-underline-offset:3px;text-d
 
 <section style="background:#F4F3EF">
 <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
-<h2 style="margin:0 0 clamp(36px,4vw,56px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:24ch;text-wrap:pretty">Cada frente de trabalho, com seu escopo definido.</h2>
-<div style="display:flex;flex-wrap:wrap;gap:clamp(24px,3vw,48px)">
-<div style="flex:1 1 320px;min-width:0;border-top:3px solid #FF7900;padding-top:22px">
-<h3 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(22px,2vw,28px);line-height:1.15">SIPI</h3>
-<ul style="margin:0;padding:0;list-style:none;border-top:1px solid #D8DCDE">
-<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Fornecimento das lajes.</li>
-<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Transporte e logística.</li>
-<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Içamento das peças.</li>
-<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Escoramento e montagem.</li>
+<p style="margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.16em;color:#111415">INTEGRAÇÃO COM A OBRA</p>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,64px);align-items:flex-start;margin-bottom:clamp(40px,5vw,64px)">
+<h2 style="flex:1 1 420px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:22ch;text-wrap:pretty">A industrialização começa no planejamento. A eficiência se concretiza na obra.</h2>
+<p style="flex:1 1 380px;min-width:0;margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.6;color:#565E62;max-width:58ch;text-wrap:pretty">O Sistema SIPI integra engenharia, fabricação, logística e montagem ao planejamento da construtora. Com a antecipação de atividades estruturais e elétricas para o ambiente industrial, a execução do pavimento passa a contar com menos operações simultâneas no canteiro e uma sequência de montagem previamente definida.</p>
+</div>
+
+<div class="cmp-grid" style="gap:clamp(16px,2vw,28px);margin-bottom:clamp(44px,5vw,72px)">
+
+<div style="background:#FFFFFF;border:1px solid #DDE0DE;padding:clamp(20px,2.4vw,30px);min-width:0">
+<div style="border-top:3px solid #242A2D;padding-top:16px;margin-bottom:24px">
+<p style="margin:0 0 8px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#6E7679">EXECUÇÃO CONVENCIONAL</p>
+<h3 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(19px,1.6vw,22px);line-height:1.2;text-wrap:pretty">Laje moldada in loco, com as atividades concentradas no canteiro.</h3>
+</div>
+<p style="margin:0 0 10px;font-size:11.5px;font-weight:600;letter-spacing:.12em;color:#6E7679">AMBIENTE INDUSTRIAL</p>
+<div style="border:1px dashed #C9CDCE;padding:14px;margin-bottom:22px;font-size:14.5px;line-height:1.45;color:#6E7679">Sem atividades antecipadas fora da obra.</div>
+<p style="margin:0 0 10px;font-size:11.5px;font-weight:600;letter-spacing:.12em;color:#242A2D">CANTEIRO</p>
+<ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px">
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Preparação da área de execução</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Montagem de formas e escoramento</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Posicionamento das armaduras</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Infraestrutura elétrica prevista na laje</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Concretagem</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Cura e atividades de continuidade do processo</li>
+</ul>
+<p style="margin:18px 0 0;font-size:14px;line-height:1.5;color:#6E7679;text-wrap:pretty">Diferentes atividades, equipes e interfaces são coordenadas dentro do canteiro.</p>
+</div>
+
+<div style="background:#FFFFFF;border:1px solid #DDE0DE;padding:clamp(20px,2.4vw,30px);min-width:0">
+<div style="border-top:3px solid #FF7900;padding-top:16px;margin-bottom:24px">
+<p style="margin:0 0 8px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#FF7900">EXECUÇÃO COM O SISTEMA SIPI</p>
+<h3 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(19px,1.6vw,22px);line-height:1.2;text-wrap:pretty">Parte das atividades é antecipada para o ambiente industrial.</h3>
+</div>
+<p style="margin:0 0 10px;font-size:11.5px;font-weight:600;letter-spacing:.12em;color:#FF7900">AMBIENTE INDUSTRIAL</p>
+<ul style="margin:0 0 10px;padding:0;list-style:none;display:grid;gap:8px">
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #F3D6B8;background:#FEF6EF;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;background:#FF7900"></span>Engenharia e compatibilização dos projetos</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #F3D6B8;background:#FEF6EF;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;background:#FF7900"></span>Fabricação das lajes em ambiente industrial</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #F3D6B8;background:#FEF6EF;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;background:#FF7900"></span>Eletrodutos e caixas incorporados às peças</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #F3D6B8;background:#FEF6EF;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;background:#FF7900"></span>Produção e carregamento na sequência de montagem</li>
+</ul>
+<div style="display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:0 2px">
+<svg viewBox="0 0 16 22" width="14" height="19" fill="none" aria-hidden="true" style="flex:0 0 auto"><line x1="8" y1="1" x2="8" y2="17" stroke="#FF7900" stroke-width="1.6"></line><polyline points="3,13 8,18.5 13,13" stroke="#FF7900" stroke-width="1.6"></polyline></svg>
+<p style="margin:0;font-size:13.5px;line-height:1.45;color:#B35400">Transporte até o empreendimento na ordem prevista</p>
+</div>
+<p style="margin:0 0 10px;font-size:11.5px;font-weight:600;letter-spacing:.12em;color:#242A2D">CANTEIRO</p>
+<ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px">
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Preparação da obra coordenada com a montagem</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Içamento e montagem conforme o planejamento</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Escoramento conforme o projeto e a montagem</li>
+<li style="display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid #E1E3E1;background:#FAFAF8;font-size:14.5px;line-height:1.45;color:#2A3033"><span aria-hidden="true" style="width:8px;height:8px;margin-top:5px;flex:0 0 auto;border:1px solid #9AA0A2"></span>Interfaces elétricas entre laje e alvenaria, conforme o projeto</li>
+</ul>
+<p style="margin:18px 0 0;font-size:14px;line-height:1.5;color:#6E7679;text-wrap:pretty">As atividades em laranja deixam de ocorrer no canteiro e passam a ser executadas antecipadamente.</p>
+</div>
+
+</div>
+
+<div class="dim-grid" style="gap:clamp(20px,2.4vw,36px);border-top:1px solid #C9CDCE;padding-top:clamp(28px,3vw,40px)">
+<div style="min-width:0">
+<p style="margin:0 0 14px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#FF7900">01 | PLANEJAMENTO</p>
+<svg viewBox="0 0 32 32" width="42" height="42" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:16px"><rect x="3.5" y="4.5" width="17" height="13" stroke="#111415" stroke-width="1.5"></rect><rect x="11.5" y="14.5" width="17" height="13" stroke="#FF7900" stroke-width="1.5"></rect><line x1="7.5" y1="8.5" x2="16.5" y2="8.5" stroke="#111415" stroke-width="1.5"></line><line x1="7.5" y1="12.5" x2="13.5" y2="12.5" stroke="#111415" stroke-width="1.5"></line></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.4vw,19px);line-height:1.22;text-wrap:pretty">A industrialização começa antes da obra.</h3>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#565E62;text-wrap:pretty">A análise dos projetos, a compatibilização das disciplinas e a modulação das lajes permitem organizar antecipadamente a produção, as interfaces construtivas e a sequência de montagem.</p>
+</div>
+<div style="min-width:0">
+<p style="margin:0 0 14px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#FF7900">02 | EXECUÇÃO</p>
+<svg viewBox="0 0 32 32" width="42" height="42" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:16px"><rect x="2.5" y="17.5" width="10" height="10" stroke="#111415" stroke-width="1.5"></rect><rect x="19.5" y="17.5" width="10" height="10" stroke="#FF7900" stroke-width="1.5"></rect><polyline points="9,9 24.5,9 24.5,15" stroke="#FF7900" stroke-width="1.5"></polyline><polyline points="21.5,12 24.5,15.5 27.5,12" stroke="#FF7900" stroke-width="1.5"></polyline><line x1="7.5" y1="15.5" x2="7.5" y2="9" stroke="#111415" stroke-width="1.5"></line></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.4vw,19px);line-height:1.22;text-wrap:pretty">Menos atividades concentradas no canteiro.</h3>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#565E62;text-wrap:pretty">Com as lajes e parte da infraestrutura elétrica preparadas em ambiente industrial, a construtora reduz a quantidade de operações necessárias à preparação e execução do pavimento em obra.</p>
+</div>
+<div style="min-width:0">
+<p style="margin:0 0 14px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#FF7900">03 | INTEGRAÇÃO OPERACIONAL</p>
+<svg viewBox="0 0 32 32" width="42" height="42" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:16px"><line x1="3" y1="7.5" x2="29" y2="7.5" stroke="#111415" stroke-width="1.5"></line><circle cx="8" cy="7.5" r="2.6" stroke="#FF7900" stroke-width="1.5"></circle><circle cx="16" cy="7.5" r="2.6" stroke="#FF7900" stroke-width="1.5"></circle><circle cx="24" cy="7.5" r="2.6" stroke="#FF7900" stroke-width="1.5"></circle><line x1="8" y1="11" x2="8" y2="20" stroke="#111415" stroke-width="1.5"></line><line x1="16" y1="11" x2="16" y2="24" stroke="#111415" stroke-width="1.5"></line><line x1="24" y1="11" x2="24" y2="17" stroke="#111415" stroke-width="1.5"></line><rect x="4.5" y="20" width="7" height="3.5" stroke="#111415" stroke-width="1.5"></rect><rect x="12.5" y="24" width="7" height="3.5" stroke="#111415" stroke-width="1.5"></rect><rect x="20.5" y="17" width="7" height="3.5" stroke="#111415" stroke-width="1.5"></rect></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.4vw,19px);line-height:1.22;text-wrap:pretty">Produção e montagem conectadas ao cronograma.</h3>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#565E62;text-wrap:pretty">A fabricação e a logística são organizadas conforme a sequência prevista de execução, conectando o fornecimento das peças ao planejamento da construtora.</p>
+</div>
+<div style="min-width:0">
+<p style="margin:0 0 14px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#FF7900">04 | PREVISIBILIDADE</p>
+<svg viewBox="0 0 32 32" width="42" height="42" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:16px"><rect x="3.5" y="4.5" width="25" height="23" stroke="#111415" stroke-width="1.5"></rect><line x1="3.5" y1="11" x2="28.5" y2="11" stroke="#111415" stroke-width="1.5"></line><line x1="8" y1="16" x2="15" y2="16" stroke="#111415" stroke-width="1.5"></line><line x1="8" y1="21" x2="15" y2="21" stroke="#111415" stroke-width="1.5"></line><polyline points="18.5,16 20.5,18 24.5,14" stroke="#FF7900" stroke-width="1.5"></polyline><polyline points="18.5,21 20.5,23 24.5,19" stroke="#FF7900" stroke-width="1.5"></polyline></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.4vw,19px);line-height:1.22;text-wrap:pretty">Um processo planejado para reduzir a variabilidade.</h3>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#565E62;text-wrap:pretty">A organização antecipada das interfaces e das atividades busca reduzir interferências operacionais e proporcionar maior controle sobre o ciclo de execução do pavimento.</p>
+</div>
+</div>
+
+<div style="margin-top:clamp(36px,4vw,56px);border:1px solid #D8DCDE;background:#FFFFFF;padding:clamp(22px,2.6vw,32px)">
+<p style="margin:0 0 16px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#6E7679">INTEGRAÇÃO COMPLETA</p>
+<div class="scope-grid" style="gap:clamp(20px,3vw,48px)">
+<div style="min-width:0">
+<h3 style="margin:0 0 12px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;line-height:1.2">SIPI</h3>
+<ul style="margin:0;padding:0;list-style:none;border-top:1px solid #E6E8E6">
+<li style="padding:11px 0;border-bottom:1px solid #E6E8E6;font-size:15px;line-height:1.5;color:#2A3033">Fornecimento das lajes.</li>
+<li style="padding:11px 0;border-bottom:1px solid #E6E8E6;font-size:15px;line-height:1.5;color:#2A3033">Transporte e logística.</li>
+<li style="padding:11px 0;border-bottom:1px solid #E6E8E6;font-size:15px;line-height:1.5;color:#2A3033">Içamento das peças.</li>
+<li style="padding:11px 0;border-bottom:1px solid #E6E8E6;font-size:15px;line-height:1.5;color:#2A3033">Escoramento e montagem.</li>
 </ul>
 </div>
-<div style="flex:1 1 320px;min-width:0;border-top:3px solid #242A2D;padding-top:22px">
-<h3 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(22px,2vw,28px);line-height:1.15">Construtora</h3>
-<ul style="margin:0;padding:0;list-style:none;border-top:1px solid #D8DCDE">
-<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Execução da alvenaria estrutural.</li>
-<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Equipe de alvenaria e seus ajudantes.</li>
-<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Demais atividades fora do escopo contratado.</li>
+<div style="min-width:0">
+<h3 style="margin:0 0 12px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;line-height:1.2">Construtora</h3>
+<ul style="margin:0;padding:0;list-style:none;border-top:1px solid #E6E8E6">
+<li style="padding:11px 0;border-bottom:1px solid #E6E8E6;font-size:15px;line-height:1.5;color:#2A3033">Execução da alvenaria estrutural.</li>
+<li style="padding:11px 0;border-bottom:1px solid #E6E8E6;font-size:15px;line-height:1.5;color:#2A3033">Equipe de alvenaria e seus ajudantes.</li>
+<li style="padding:11px 0;border-bottom:1px solid #E6E8E6;font-size:15px;line-height:1.5;color:#2A3033">Demais atividades fora do escopo contratado.</li>
 </ul>
 </div>
 </div>
-<p style="margin:clamp(28px,3vw,40px) 0 0;font-size:15px;line-height:1.55;color:#565E62;max-width:70ch;text-wrap:pretty">Os serviços de engenharia, as condições de montagem e os limites de responsabilidade são definidos na análise de cada empreendimento.</p>
+<p style="margin:20px 0 0;font-size:14.5px;line-height:1.55;color:#565E62;max-width:80ch;text-wrap:pretty">A preparação da obra e a montagem das peças são coordenadas entre as equipes. O escoramento depende das necessidades do projeto e do planejamento de montagem. A execução das conexões elétricas entre laje e alvenaria depende de confirmação específica. Os serviços de engenharia, as condições de montagem e os limites de responsabilidade são definidos na análise de cada empreendimento.</p>
+</div>
 </div>
 </section>
 
@@ -405,19 +509,31 @@ a:hover{color:#111415;text-decoration:underline;text-underline-offset:3px;text-d
 </main>
 
 <footer style="background:#FFFFFF;border-top:1px solid #D8DCDE">
-<div style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px);justify-content:space-between;align-items:flex-start">
-<div style="flex:1 1 300px;min-width:0">
-<img src="assets/sipi-logo.png" alt="SIPI — Sistema Integrado de Pavimento Industrializado" style="height:62px;width:auto;display:block;margin-bottom:18px">
-<p style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;line-height:1.15">SIPI</p>
+<div style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,5vw,48px) 0">
+<div class="ft-top" style="gap:clamp(28px,4vw,64px);padding-bottom:clamp(32px,4vw,52px)">
+<div style="min-width:0">
+<img src="assets/sipi-logo.png" alt="SIPI — Sistema Integrado de Pavimento Industrializado" style="height:58px;width:auto;display:block;margin-bottom:18px">
 <p style="margin:0 0 10px;font-size:15px;line-height:1.55;color:#565E62">Sistema Integrado de Pavimento Industrializado.</p>
 <p style="margin:0;font-size:15px;line-height:1.55;color:#565E62;max-width:44ch;text-wrap:pretty">Lajes prontas e montagem integrada para edifícios de alvenaria estrutural.</p>
 </div>
-<nav aria-label="Rodapé" style="flex:0 1 auto;display:flex;flex-direction:column;gap:12px">
+<div style="min-width:0">
+<p style="margin:0 0 16px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#6E7679">NAVEGAÇÃO</p>
+<nav aria-label="Rodapé" class="ft-nav" style="gap:12px clamp(16px,3vw,32px)">
 <a href="#/" onClick="{{ go }}" data-page="home" style="font-size:15px;font-weight:500">Início</a>
 <a href="#/sistema" onClick="{{ go }}" data-page="sistema" style="font-size:15px;font-weight:500">Sistema SIPI</a>
 <a href="#/empresa" onClick="{{ go }}" data-page="empresa" style="font-size:15px;font-weight:500">Empresa</a>
 <a href="#/contato" onClick="{{ go }}" data-page="contato" style="font-size:15px;font-weight:500">Contato</a>
 </nav>
+</div>
+<div style="min-width:0">
+<p style="margin:0 0 16px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#6E7679">AVALIAÇÃO DE EMPREENDIMENTO</p>
+<p style="margin:0 0 18px;font-size:15px;line-height:1.55;color:#565E62;max-width:34ch;text-wrap:pretty">A aplicação do sistema é avaliada a partir do projeto e da fase da obra.</p>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="background:#FF7900;color:#FFFFFF;font-size:15px;font-weight:600;padding:15px 22px;border-radius:6px;line-height:1;min-height:48px;display:inline-flex;align-items:center;text-decoration:none" style-hover="background:#E56D00;color:#111415">Avaliar meu empreendimento</a>
+</div>
+</div>
+<div class="ft-base" style="border-top:1px solid #D8DCDE;padding:22px 0 26px;gap:10px clamp(16px,3vw,32px)">
+<p style="margin:0;font-size:14px;line-height:1.55;color:#6E7679;text-wrap:pretty">SIPI - Sistema Integrado de Pavimento Industrializado. Todos os direitos reservados.</p>
+</div>
 </div>
 </footer>
 
@@ -483,12 +599,37 @@ class Component extends DCLogic {
     this._vis = () => { if (document.hidden) this.pauseScene(); };
     document.addEventListener('visibilitychange', this._vis);
     this.observeScene();
+    this.observeReveal();
   }
   componentDidUpdate(){
     if (this._lastPage !== this.state.page){
       this._lastPage = this.state.page;
       this.observeScene();
     }
+    this.observeReveal();
+  }
+  observeReveal(){
+    const nodes = Array.prototype.slice.call(document.querySelectorAll('main section, footer'));
+    const fresh = nodes.filter(n => !n.hasAttribute('data-reveal'));
+    if (!fresh.length) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    fresh.forEach(n => {
+      if (n.id === 'como-funciona') n.setAttribute('data-reveal-mode', 'fade');
+      n.setAttribute('data-reveal', reduced ? 'in' : '');
+    });
+    if (reduced || !window.IntersectionObserver) return;
+    if (!this._ro){
+      this._ro = new IntersectionObserver((es)=>{
+        es.forEach(e=>{
+          if (e.isIntersecting){ e.target.setAttribute('data-reveal','in'); this._ro.unobserve(e.target); }
+        });
+      }, {threshold:0.1, rootMargin:'0px 0px -8% 0px'});
+    }
+    fresh.forEach(n => {
+      const r = n.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92) { requestAnimationFrame(()=>n.setAttribute('data-reveal','in')); return; }
+      this._ro.observe(n);
+    });
   }
   componentWillUnmount(){
     window.removeEventListener('hashchange', this._hash);
@@ -496,12 +637,38 @@ class Component extends DCLogic {
     window.removeEventListener('sipi-failed', this._onFail);
     document.removeEventListener('visibilitychange', this._vis);
     if (this._io) this._io.disconnect();
+    if (this._ro) this._ro.disconnect();
   }
   observeScene(){
     if (this._io) this._io.disconnect();
     if (!window.IntersectionObserver || !this.animRef || !this.animRef.current) return;
-    this._io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(!e.isIntersecting) this.pauseScene(); }); }, {threshold:0.12});
-    this._io.observe(this.animRef.current);
+    const target = this.animRef.current.querySelector('.exp-view') || this.animRef.current;
+    this._io = new IntersectionObserver((es)=>{
+      es.forEach(e=>{
+        const r = e.intersectionRatio;
+        if (e.isIntersecting && r >= 0.6) {
+          if (!this._autoStarted) {
+            this._autoStarted = true;
+            if (this.state.reduced || this._userSeeked || this._manualPause) return;
+            const sc = this.scene();
+            if (sc && sc.seekUniform) sc.seekUniform(0);
+            this._autoPaused = false;
+            this.playScene();
+          } else if (this._autoPaused && !this._manualPause && !this._userSeeked && !this.state.reduced) {
+            this._autoPaused = false;
+            this.playScene();
+          }
+        } else if (!e.isIntersecting || r < 0.25) {
+          if (this.state.playing) { this._autoPaused = true; this.pauseScene(); }
+        }
+      });
+    }, {threshold:[0, 0.25, 0.6, 0.9]});
+    this._io.observe(target);
+  }
+  markUser(){ this._userSeeked = true; this._autoStarted = true; this._autoPaused = false; }
+  manualToggle(){
+    if (this.state.playing) { this._manualPause = true; this._autoPaused = false; this.pauseScene(); }
+    else { this._manualPause = false; this._autoStarted = true; this.playScene(); }
   }
 
   scene(){ return document.querySelector('sipi-process'); }
@@ -520,6 +687,7 @@ class Component extends DCLogic {
     if (!el) return;
     e.preventDefault();
     el.focus();
+    this.markUser();
     this.pauseScene();
     this.tlSeek(e.clientX);
     const move = (ev) => { ev.preventDefault(); this.tlSeek(ev.clientX); };
@@ -545,11 +713,12 @@ class Component extends DCLogic {
     else if (e.key === 'End') nf = 1;
     if (nf === null) return;
     e.preventDefault();
+    this.markUser();
     sc.seekUniform(nf);
   }
   pauseScene(){ const sc = this.scene(); if (sc && sc.pause) sc.pause(); }
   playScene(){ const sc = this.scene(); if (sc && sc.play) sc.play(); }
-  gotoScene(i){ const sc = this.scene(); if (sc && sc.goToStep) sc.goToStep(i); else this.setState({step:i}); }
+  gotoScene(i){ this.markUser(); const sc = this.scene(); if (sc && sc.goToStep) sc.goToStep(i); else this.setState({step:i}); }
 
   readHash(){
     const h = (window.location.hash || '').replace(/^#\/?/, '').split('#')[0];
@@ -769,7 +938,7 @@ class Component extends DCLogic {
       playLabel: st.playing ? 'Pausar' : 'Reproduzir',
       prevStep: ()=>this.gotoScene(Math.max(0, st.step-1)),
       nextStep: ()=>this.gotoScene(Math.min(5, st.step+1)),
-      togglePlay: ()=> st.playing ? this.pauseScene() : this.playScene(),
+      togglePlay: ()=> this.manualToggle(),
       restart: ()=>this.gotoScene(0),
       btnPrev: this.ctl('ghost', st.step===0), btnNext: this.ctl('ghost', st.step===5),
       btnPlay: this.ctl('play', false), btnRestart: this.ctl('ghost', false),
