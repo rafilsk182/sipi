@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics=""><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"><style>
+html,body{margin:0;padding:0;background:#F4F3EF;color:#111415;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+*{box-sizing:border-box}
+a{color:#111415;text-decoration:none}
+a:hover{color:#111415;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#FF7900;text-decoration-thickness:2px}
+:focus-visible{outline:2px solid #FF7900;outline-offset:2px}
+.exp-row{display:flex;flex-wrap:wrap}
+.exp-scene{flex:64 1 420px;min-width:0;border-right:1px solid #E6E8E6}
+.exp-panel{flex:36 1 300px;min-width:0}
+.exp-view{width:100%;aspect-ratio:16/10;min-height:340px}
+.tl-name{display:block}
+.tl-steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
+@media(max-width:900px){.exp-scene{flex:100 1 100%;border-right:none;border-bottom:1px solid #E6E8E6}.exp-panel{flex:100 1 100%}.exp-view{aspect-ratio:4/3;min-height:300px}}
+@media(max-width:760px){.tl-name{display:none}}
+.proc-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
+@media(max-width:1120px){.proc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.proc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:470px){.proc-grid{grid-template-columns:minmax(0,1fr)}}
+.hero{position:relative;background-color:#111415;background-image:linear-gradient(90deg,rgba(15,18,19,.95) 0%,rgba(15,18,19,.9) 32%,rgba(15,18,19,.62) 56%,rgba(15,18,19,.34) 78%,rgba(15,18,19,.3) 100%),url("assets/hero-bg.png");background-repeat:no-repeat,no-repeat;background-size:cover,cover;background-position:center,center right}
+@media(max-width:880px){.hero{background-image:linear-gradient(180deg,rgba(15,18,19,.94) 0%,rgba(15,18,19,.88) 42%,rgba(15,18,19,.6) 72%,rgba(15,18,19,.42) 100%),url("assets/hero-bg-mobile.png");background-position:center,50% 28%}}
+.nav-toggle{display:none!important}
+.hd-bar{min-width:0}
+.hd-logo img{display:block;height:clamp(42px,5.4vw,68px);width:auto}
+@media(max-width:880px){.nav-desktop{display:none!important}.nav-toggle{display:inline-flex!important}}
+@media(max-width:880px){.hd-logo img{width:auto!important;height:54px!important}}
+@media(max-width:440px){.hd-logo img{height:44px!important}.nav-toggle{padding:10px 12px}}
+@media(max-width:344px){.hd-logo img{height:38px!important}}
+</style><script type="module" src="sipi-scene.js"></script></helmet>
+
+<header style="background:#FFFFFF;border-bottom:1px solid #D8DCDE;position:sticky;top:0;z-index:40">
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<nav id="menu-mobile" aria-label="Principal (celular)" style="border-top:1px solid #D8DCDE;padding:8px clamp(16px,5vw,48px) 20px;display:flex;flex-direction:column;gap:2px;background:#FFFFFF">
+<a href="#/" onClick="{{ go }}" data-page="home" style="padding:14px 0;font-size:17px;font-weight:500;border-bottom:1px solid #D8DCDE">Início</a>
+<a href="#/sistema" onClick="{{ go }}" data-page="sistema" style="padding:14px 0;font-size:17px;font-weight:500;border-bottom:1px solid #D8DCDE">Sistema SIPI</a>
+<a href="#/empresa" onClick="{{ go }}" data-page="empresa" style="padding:14px 0;font-size:17px;font-weight:500;border-bottom:1px solid #D8DCDE">Empresa</a>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="padding:14px 0;font-size:17px;font-weight:500;border-bottom:1px solid #D8DCDE">Contato</a>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="margin-top:14px;background:#FF7900;color:#111415;font-size:16px;font-weight:600;padding:16px 20px;border-radius:6px;text-align:center">Avaliar meu empreendimento</a>
+</nav>
+</sc-if>
+<div class="hd-bar" style="max-width:1280px;margin:0 auto;padding:12px clamp(16px,5vw,48px);display:flex;align-items:center;gap:clamp(12px,2.5vw,24px);justify-content:space-between;flex-wrap:nowrap">
+<a class="hd-logo" href="#/" onClick="{{ go }}" data-page="home" aria-label="SIPI — ir para o início" style="display:block;flex:0 0 auto"><img src="assets/sipi-logo.png" alt="SIPI — Sistema Integrado de Pavimento Industrializado" style="width: 308px; height: 123px"></a>
+<nav class="nav-desktop" aria-label="Principal" style="display:flex;align-items:center;gap:clamp(16px,2vw,28px);min-width:0;flex:0 1 auto">
+<a href="#/" onClick="{{ go }}" data-page="home" style="font-size:15px;font-weight:500;letter-spacing:.01em">Início</a>
+<a href="#/sistema" onClick="{{ go }}" data-page="sistema" style="font-size:15px;font-weight:500;letter-spacing:.01em">Sistema SIPI</a>
+<a href="#/empresa" onClick="{{ go }}" data-page="empresa" style="font-size:15px;font-weight:500;letter-spacing:.01em">Empresa</a>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="font-size:15px;font-weight:500;letter-spacing:.01em">Contato</a>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="background: #FF7900; color: #FFFFFF; font-size: 15px; font-weight: 600; padding: 12px 20px; border-radius: 6px; line-height: 1" style-hover="background:#E56D00;color:#111415">Avaliar meu empreendimento</a>
+</nav>
+<button class="nav-toggle" type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpen }}" aria-controls="menu-mobile" style="flex:0 0 auto;align-items:center;gap:9px;background:#FFFFFF;border:1px solid #D8DCDE;border-radius:6px;padding:11px 13px;font:600 14px Inter,sans-serif;color:#111415;cursor:pointer;min-height:44px;white-space:nowrap"><span aria-hidden="true" style="display:flex;flex-direction:column;gap:3.5px;width:16px"><span style="display:block;height:2px;background:#111415;border-radius:1px"></span><span style="display:block;height:2px;background:#111415;border-radius:1px"></span><span style="display:block;height:2px;background:#111415;border-radius:1px"></span></span>Menu</button>
+</div></header>
+
+<main>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+
+<section class="hero" style="color:#FFFFFF">
+<div style="position:relative;max-width:1280px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:center">
+<div style="flex:43 1 330px;min-width:0">
+<h1 style="margin:0 0 24px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(34px,3.5vw,52px);line-height:1.08;letter-spacing:-.02em;max-width:20ch;text-wrap:pretty">Sistema Integrado de Pavimento Industrializado</h1>
+<p style="margin:0 0 32px;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#B8C0C4;max-width:46ch;text-wrap:pretty">Lajes prontas para edifícios de alvenaria estrutural, com fornecimento, transporte, logística, içamento, escoramento e montagem integrados pela SIPI.</p>
+<div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px">
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="background: #FF7900; color: #FFFFFF; font-size: 16px; font-weight: 600; padding: 17px 26px; border-radius: 6px; line-height: 1; min-height: 52px; display: inline-flex; align-items: center" style-hover="background:#E56D00;color:#111415">Avaliar meu empreendimento</a>
+<a href="#como-funciona" onClick="{{ goAnim }}" style="border:1px solid #6E7679;color:#FFFFFF;font-size:16px;font-weight:600;padding:17px 26px;border-radius:6px;line-height:1;min-height:52px;display:inline-flex;align-items:center" style-hover="border-color:#FF7900;color:#FF7900">Ver como funciona</a>
+</div>
+</div>
+<div aria-hidden="true" style="flex:57 1 400px;min-width:0;height:clamp(200px,40vw,560px)"></div>
+</div></section>
+
+<section style="background:#F4F3EF">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
+<p style="margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.16em;color:#111415">O PROCESSO</p>
+<h2 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:24ch;text-wrap:pretty">Da engenharia à montagem, um processo integrado.</h2>
+<p style="margin:0 0 clamp(36px,4.5vw,58px);font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:74ch;text-wrap:pretty">Conheça as etapas que conectam projeto, planejamento, fabricação industrial, transporte sequenciado, içamento e montagem do pavimento.</p>
+<div class="proc-grid">
+<div style="position:relative;border-top:1px solid #C9CDCE;padding:clamp(26px,2.6vw,34px) clamp(16px,1.8vw,28px) clamp(26px,3vw,38px) 0">
+<span aria-hidden="true" style="position:absolute;left:0;top:-4.5px;width:9px;height:9px;background:#FF7900;border-radius:50%;display:block"></span>
+<p aria-hidden="true" style="margin:0 0 clamp(18px,2vw,26px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:26px;line-height:1;color:#111415;letter-spacing:-.01em">1</p>
+<svg viewBox="0 0 32 32" width="46" height="46" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:clamp(14px,1.6vw,20px)"><rect x="4.5" y="11.5" width="16" height="12" stroke="#111415" strokeWidth="1.8"></rect><rect x="11.5" y="6.5" width="16" height="12" stroke="#FF7900" strokeWidth="1.8"></rect><line x1="8" y1="17.5" x2="15" y2="17.5" stroke="#111415" strokeWidth="1.2"></line><line x1="11.5" y1="8.5" x2="11.5" y2="4" stroke="#111415" strokeWidth="1.2"></line><line x1="9" y1="11.5" x2="27.5" y2="11.5" stroke="#111415" strokeWidth="1" strokeDasharray="2 3"></line></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16.5px,1.35vw,18.5px);line-height:1.2;text-wrap:pretty">Projeto e Compatibilização</h3>
+<p style="margin:0;font-size:clamp(14.5px,1.05vw,15.5px);line-height:1.55;color:#565E62;text-wrap:pretty">Análise do projeto e compatibilização das disciplinas para definir a aplicação do sistema no pavimento.</p>
+</div>
+<div style="position:relative;border-top:1px solid #C9CDCE;padding:clamp(26px,2.6vw,34px) clamp(16px,1.8vw,28px) clamp(26px,3vw,38px) 0">
+<span aria-hidden="true" style="position:absolute;left:0;top:-4.5px;width:9px;height:9px;background:#FF7900;border-radius:50%;display:block"></span>
+<p aria-hidden="true" style="margin:0 0 clamp(18px,2vw,26px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:26px;line-height:1;color:#111415;letter-spacing:-.01em">2</p>
+<svg viewBox="0 0 32 32" width="46" height="46" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:clamp(14px,1.6vw,20px)"><line x1="5" y1="5.5" x2="5" y2="26.5" stroke="#111415" strokeWidth="1.8"></line><line x1="5" y1="26.5" x2="27.5" y2="26.5" stroke="#111415" strokeWidth="1.8"></line><rect x="8" y="8" width="12" height="3.4" stroke="#111415" strokeWidth="1.8"></rect><rect x="12" y="14.3" width="14.5" height="3.4" stroke="#FF7900" strokeWidth="1.8"></rect><rect x="9" y="20.6" width="9" height="3.4" stroke="#111415" strokeWidth="1.8"></rect></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16.5px,1.35vw,18.5px);line-height:1.2;text-wrap:pretty">Planejamento</h3>
+<p style="margin:0;font-size:clamp(14.5px,1.05vw,15.5px);line-height:1.55;color:#565E62;text-wrap:pretty">Definição da modulação, da sequência de produção, da logística e da ordem de montagem.</p>
+</div>
+<div style="position:relative;border-top:1px solid #C9CDCE;padding:clamp(26px,2.6vw,34px) clamp(16px,1.8vw,28px) clamp(26px,3vw,38px) 0">
+<span aria-hidden="true" style="position:absolute;left:0;top:-4.5px;width:9px;height:9px;background:#FF7900;border-radius:50%;display:block"></span>
+<p aria-hidden="true" style="margin:0 0 clamp(18px,2vw,26px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:26px;line-height:1;color:#111415;letter-spacing:-.01em">3</p>
+<svg viewBox="0 0 32 32" width="46" height="46" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:clamp(14px,1.6vw,20px)"><polyline points="4,15.5 9,10.5 9,15.5 14,10.5 14,15.5 19,10.5 19,15.5 24,10.5 24,15.5" stroke="#111415" strokeWidth="1.8" strokeLinejoin="round"></polyline><line x1="4" y1="15.5" x2="4" y2="25.5" stroke="#111415" strokeWidth="1.8"></line><line x1="24" y1="15.5" x2="24" y2="25.5" stroke="#111415" strokeWidth="1.8"></line><line x1="2.5" y1="25.5" x2="28.5" y2="25.5" stroke="#111415" strokeWidth="1.8"></line><rect x="8" y="19" width="12" height="3.6" stroke="#FF7900" strokeWidth="1.8"></rect></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16.5px,1.35vw,18.5px);line-height:1.2;text-wrap:pretty">Fabricação Industrial</h3>
+<p style="margin:0;font-size:clamp(14.5px,1.05vw,15.5px);line-height:1.55;color:#565E62;text-wrap:pretty">Produção das lajes em ambiente industrial, com infraestrutura incorporada conforme os projetos compatibilizados.</p>
+</div>
+<div style="position:relative;border-top:1px solid #C9CDCE;padding:clamp(26px,2.6vw,34px) clamp(16px,1.8vw,28px) clamp(26px,3vw,38px) 0">
+<span aria-hidden="true" style="position:absolute;left:0;top:-4.5px;width:9px;height:9px;background:#FF7900;border-radius:50%;display:block"></span>
+<p aria-hidden="true" style="margin:0 0 clamp(18px,2vw,26px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:26px;line-height:1;color:#111415;letter-spacing:-.01em">4</p>
+<svg viewBox="0 0 32 32" width="46" height="46" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:clamp(14px,1.6vw,20px)"><line x1="2.5" y1="22.5" x2="20" y2="22.5" stroke="#111415" strokeWidth="1.8"></line><path d="M20 22.5 L20 14.5 L24.5 14.5 L28.5 18.5 L28.5 22.5" stroke="#111415" strokeWidth="1.8" strokeLinejoin="round"></path><rect x="4.5" y="18.4" width="12" height="3.4" stroke="#111415" strokeWidth="1.8"></rect><rect x="4.5" y="14.4" width="12" height="3.4" stroke="#FF7900" strokeWidth="1.8"></rect><circle cx="8" cy="25" r="2" stroke="#111415" strokeWidth="1.8"></circle><circle cx="24" cy="25" r="2" stroke="#111415" strokeWidth="1.8"></circle></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16.5px,1.35vw,18.5px);line-height:1.2;text-wrap:pretty">Transporte Sequenciado</h3>
+<p style="margin:0;font-size:clamp(14.5px,1.05vw,15.5px);line-height:1.55;color:#565E62;text-wrap:pretty">Carregamento e transporte organizados conforme a ordem prevista de montagem em obra.</p>
+</div>
+<div style="position:relative;border-top:1px solid #C9CDCE;padding:clamp(26px,2.6vw,34px) clamp(16px,1.8vw,28px) clamp(26px,3vw,38px) 0">
+<span aria-hidden="true" style="position:absolute;left:0;top:-4.5px;width:9px;height:9px;background:#FF7900;border-radius:50%;display:block"></span>
+<p aria-hidden="true" style="margin:0 0 clamp(18px,2vw,26px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:26px;line-height:1;color:#111415;letter-spacing:-.01em">5</p>
+<svg viewBox="0 0 32 32" width="46" height="46" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:clamp(14px,1.6vw,20px)"><line x1="16" y1="3" x2="16" y2="8.5" stroke="#111415" strokeWidth="1.8"></line><path d="M14.4 8.5 L17.6 8.5 L16 11 Z" stroke="#111415" strokeWidth="1.4" strokeLinejoin="round"></path><line x1="16" y1="11" x2="6.5" y2="17" stroke="#111415" strokeWidth="1.4"></line><line x1="16" y1="11" x2="25.5" y2="17" stroke="#111415" strokeWidth="1.4"></line><rect x="6.5" y="17" width="19" height="4.4" stroke="#FF7900" strokeWidth="1.8"></rect><line x1="10" y1="25" x2="22" y2="25" stroke="#111415" strokeWidth="1" strokeDasharray="2 3"></line></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16.5px,1.35vw,18.5px);line-height:1.2;text-wrap:pretty">Içamento</h3>
+<p style="margin:0;font-size:clamp(14.5px,1.05vw,15.5px);line-height:1.55;color:#565E62;text-wrap:pretty">Movimentação e posicionamento das peças com planejamento, segurança e precisão.</p>
+</div>
+<div style="position:relative;border-top:1px solid #C9CDCE;padding:clamp(26px,2.6vw,34px) clamp(16px,1.8vw,28px) clamp(26px,3vw,38px) 0">
+<span aria-hidden="true" style="position:absolute;left:0;top:-4.5px;width:9px;height:9px;background:#FF7900;border-radius:50%;display:block"></span>
+<p aria-hidden="true" style="margin:0 0 clamp(18px,2vw,26px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:26px;line-height:1;color:#111415;letter-spacing:-.01em">6</p>
+<svg viewBox="0 0 32 32" width="46" height="46" fill="none" role="img" aria-hidden="true" style="display:block;margin-bottom:clamp(14px,1.6vw,20px)"><rect x="5" y="17.5" width="6" height="9.5" stroke="#111415" strokeWidth="1.8"></rect><rect x="21" y="17.5" width="6" height="9.5" stroke="#111415" strokeWidth="1.8"></rect><rect x="3" y="12.6" width="26" height="4.2" stroke="#FF7900" strokeWidth="1.8"></rect><line x1="13.5" y1="19" x2="18.5" y2="19" stroke="#111415" strokeWidth="1.2"></line><line x1="3" y1="7.5" x2="29" y2="7.5" stroke="#111415" strokeWidth="1" strokeDasharray="2 3"></line></svg>
+<h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16.5px,1.35vw,18.5px);line-height:1.2;text-wrap:pretty">Montagem</h3>
+<p style="margin:0;font-size:clamp(14.5px,1.05vw,15.5px);line-height:1.55;color:#565E62;text-wrap:pretty">Instalação das lajes no pavimento e continuidade da execução conforme o plano definido.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="como-funciona" ref="{{ animRef }}" style="background:#FFFFFF;border-top:1px solid #D8DCDE;border-bottom:1px solid #D8DCDE">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
+<p style="margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.16em;color:#111415">COMO FUNCIONA</p>
+<h2 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:24ch;text-wrap:pretty">Do projeto convencional ao pavimento industrializado.</h2>
+<p style="margin:0 0 clamp(30px,3.8vw,48px);font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:76ch;text-wrap:pretty">Percorra cada etapa e veja como projeto, compatibilização, modulação, instalações incorporadas, produção e montagem se conectam no Sistema SIPI.</p>
+
+<div style="border:1px solid #E6E8E6;border-radius:6px;overflow:hidden;background:#FFFFFF">
+<div class="exp-row">
+<div class="exp-scene" style="background:#F5F4F0">
+<div class="exp-view">
+<sc-if value="{{ hasWebgl }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="sipi-process" hint-size="100%,100%"></x-import></sc-if>
+<sc-if value="{{ fallback }}" hint-placeholder-val="{{ false }}"><div>{{ scene }}</div></sc-if>
+</div>
+</div>
+<div class="exp-panel" style="display:flex;flex-direction:column;padding:clamp(22px,2.4vw,32px)">
+<p style="margin:0 0 16px;font:600 11.5px Inter,sans-serif;letter-spacing:.14em;color:#8A9194">ETAPA {{ stepNum }} DE 06</p>
+<p aria-hidden="true" style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;color:#111415;letter-spacing:-.02em">{{ stepNum }}</p>
+<h3 aria-live="polite" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(20px,1.9vw,26px);line-height:1.15;text-wrap:pretty">{{ stepTitle }}</h3>
+<p style="margin:0 0 auto;padding-bottom:26px;font-size:clamp(15.5px,1.15vw,17px);line-height:1.55;color:#565E62;text-wrap:pretty">{{ stepDesc }}</p>
+<div style="border-top:1px solid #E6E8E6;padding-top:18px">
+<div role="group" aria-label="Controles da demonstração" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+<button type="button" onClick="{{ togglePlay }}" style="{{ btnPlay }}">{{ playLabel }}</button>
+<button type="button" onClick="{{ prevStep }}" disabled="{{ atFirst }}" style="{{ btnPrev }}">Anterior</button>
+<button type="button" onClick="{{ nextStep }}" disabled="{{ atLast }}" style="{{ btnNext }}">Próxima</button>
+<button type="button" onClick="{{ restart }}" style="{{ btnRestart }}">Reiniciar</button>
+</div>
+</div>
+</div>
+</div>
+<div style="border-top:1px solid #E6E8E6;padding:clamp(18px,2vw,26px) clamp(16px,2.4vw,32px) clamp(10px,1.4vw,18px)">
+<div style="position:relative">
+<div id="tl-strip" role="slider" tabindex="0" aria-label="Linha do tempo do processo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ tlNow }}" aria-valuetext="{{ tlText }}" onPointerDown="{{ tlDown }}" onKeyDown="{{ tlKey }}" style="position:absolute;top:-15px;left:0;right:0;height:30px;z-index:2;cursor:ew-resize;touch-action:none"></div>
+<div id="tl-handle" aria-hidden="true" style="position:absolute;top:-9px;left:0%;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#FF7900;border:3px solid #FFFFFF;box-shadow:0 0 0 1px #C86200;z-index:3;pointer-events:none"></div>
+<div class="tl-steps" role="tablist" aria-label="Etapas do processo">
+<button type="button" id="tl-seg-0" role="tab" aria-selected="false" onClick="{{ tlStep0 }}" style="text-align:left;background:transparent;border:none;border-top:3px solid #E3E5E4;padding:16px clamp(8px,1vw,16px) 16px 0;cursor:pointer;min-height:54px;display:flex;flex-direction:column;gap:5px;position:relative">
+<span aria-hidden="true" id="tl-dot-0" style="position:absolute;left:0;top:-6px;width:9px;height:9px;border-radius:50%;background:#FFFFFF;border:2px solid #B9BEC0"></span>
+<span id="tl-num-0" style="font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.1em;color:#8A9194">01</span>
+<span class="tl-name" id="tl-name-0" style="font:500 12.5px Inter,sans-serif;line-height:1.3;color:#8A9194">Projeto da construtora</span>
+</button>
+<button type="button" id="tl-seg-1" role="tab" aria-selected="false" onClick="{{ tlStep1 }}" style="text-align:left;background:transparent;border:none;border-top:3px solid #E3E5E4;padding:16px clamp(8px,1vw,16px) 16px 0;cursor:pointer;min-height:54px;display:flex;flex-direction:column;gap:5px;position:relative">
+<span aria-hidden="true" id="tl-dot-1" style="position:absolute;left:0;top:-6px;width:9px;height:9px;border-radius:50%;background:#FFFFFF;border:2px solid #B9BEC0"></span>
+<span id="tl-num-1" style="font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.1em;color:#8A9194">02</span>
+<span class="tl-name" id="tl-name-1" style="font:500 12.5px Inter,sans-serif;line-height:1.3;color:#8A9194">Compatibilização</span>
+</button>
+<button type="button" id="tl-seg-2" role="tab" aria-selected="false" onClick="{{ tlStep2 }}" style="text-align:left;background:transparent;border:none;border-top:3px solid #E3E5E4;padding:16px clamp(8px,1vw,16px) 16px 0;cursor:pointer;min-height:54px;display:flex;flex-direction:column;gap:5px;position:relative">
+<span aria-hidden="true" id="tl-dot-2" style="position:absolute;left:0;top:-6px;width:9px;height:9px;border-radius:50%;background:#FFFFFF;border:2px solid #B9BEC0"></span>
+<span id="tl-num-2" style="font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.1em;color:#8A9194">03</span>
+<span class="tl-name" id="tl-name-2" style="font:500 12.5px Inter,sans-serif;line-height:1.3;color:#8A9194">Modulação das lajes</span>
+</button>
+<button type="button" id="tl-seg-3" role="tab" aria-selected="false" onClick="{{ tlStep3 }}" style="text-align:left;background:transparent;border:none;border-top:3px solid #E3E5E4;padding:16px clamp(8px,1vw,16px) 16px 0;cursor:pointer;min-height:54px;display:flex;flex-direction:column;gap:5px;position:relative">
+<span aria-hidden="true" id="tl-dot-3" style="position:absolute;left:0;top:-6px;width:9px;height:9px;border-radius:50%;background:#FFFFFF;border:2px solid #B9BEC0"></span>
+<span id="tl-num-3" style="font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.1em;color:#8A9194">04</span>
+<span class="tl-name" id="tl-name-3" style="font:500 12.5px Inter,sans-serif;line-height:1.3;color:#8A9194">Instalações incorporadas</span>
+</button>
+<button type="button" id="tl-seg-4" role="tab" aria-selected="false" onClick="{{ tlStep4 }}" style="text-align:left;background:transparent;border:none;border-top:3px solid #E3E5E4;padding:16px clamp(8px,1vw,16px) 16px 0;cursor:pointer;min-height:54px;display:flex;flex-direction:column;gap:5px;position:relative">
+<span aria-hidden="true" id="tl-dot-4" style="position:absolute;left:0;top:-6px;width:9px;height:9px;border-radius:50%;background:#FFFFFF;border:2px solid #B9BEC0"></span>
+<span id="tl-num-4" style="font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.1em;color:#8A9194">05</span>
+<span class="tl-name" id="tl-name-4" style="font:500 12.5px Inter,sans-serif;line-height:1.3;color:#8A9194">Plano de produção</span>
+</button>
+<button type="button" id="tl-seg-5" role="tab" aria-selected="false" onClick="{{ tlStep5 }}" style="text-align:left;background:transparent;border:none;border-top:3px solid #E3E5E4;padding:16px clamp(8px,1vw,16px) 16px 0;cursor:pointer;min-height:54px;display:flex;flex-direction:column;gap:5px;position:relative">
+<span aria-hidden="true" id="tl-dot-5" style="position:absolute;left:0;top:-6px;width:9px;height:9px;border-radius:50%;background:#FFFFFF;border:2px solid #B9BEC0"></span>
+<span id="tl-num-5" style="font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.1em;color:#8A9194">06</span>
+<span class="tl-name" id="tl-name-5" style="font:500 12.5px Inter,sans-serif;line-height:1.3;color:#8A9194">Plano de montagem</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<p style="margin:22px 0 0;font-size:13px;line-height:1.5;color:#565E62;max-width:80ch">Representação ilustrativa do processo. A execução depende do projeto e do planejamento técnico.</p>
+</div>
+</section>
+
+<section style="background:#F4F3EF">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
+<h2 style="margin:0 0 clamp(36px,4vw,56px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:24ch;text-wrap:pretty">Cada frente de trabalho, com seu escopo definido.</h2>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(24px,3vw,48px)">
+<div style="flex:1 1 320px;min-width:0;border-top:3px solid #FF7900;padding-top:22px">
+<h3 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(22px,2vw,28px);line-height:1.15">SIPI</h3>
+<ul style="margin:0;padding:0;list-style:none;border-top:1px solid #D8DCDE">
+<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Fornecimento das lajes.</li>
+<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Transporte e logística.</li>
+<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Içamento das peças.</li>
+<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Escoramento e montagem.</li>
+</ul>
+</div>
+<div style="flex:1 1 320px;min-width:0;border-top:3px solid #242A2D;padding-top:22px">
+<h3 style="margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(22px,2vw,28px);line-height:1.15">Construtora</h3>
+<ul style="margin:0;padding:0;list-style:none;border-top:1px solid #D8DCDE">
+<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Execução da alvenaria estrutural.</li>
+<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Equipe de alvenaria e seus ajudantes.</li>
+<li style="padding:15px 0;border-bottom:1px solid #D8DCDE;font-size:clamp(16px,1.2vw,18px);line-height:1.55">Demais atividades fora do escopo contratado.</li>
+</ul>
+</div>
+</div>
+<p style="margin:clamp(28px,3vw,40px) 0 0;font-size:15px;line-height:1.55;color:#565E62;max-width:70ch;text-wrap:pretty">Os serviços de engenharia, as condições de montagem e os limites de responsabilidade são definidos na análise de cada empreendimento.</p>
+</div>
+</section>
+
+<section style="background:#242A2D;color:#FFFFFF">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px);align-items:flex-start">
+<h2 style="flex:1 1 400px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.015em;text-wrap:pretty">Seu empreendimento utiliza alvenaria estrutural?</h2>
+<div style="flex:1 1 380px;min-width:0">
+<p style="margin:0 0 18px;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#B8C0C4;max-width:56ch;text-wrap:pretty">A oferta inicial da SIPI é direcionada a edifícios de alvenaria estrutural em São Paulo, incluindo empreendimentos de habitação de interesse social.</p>
+<p style="margin:0 0 30px;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#B8C0C4;max-width:56ch;text-wrap:pretty">A avaliação considera o projeto, a fase da obra e as condições de implantação do sistema.</p>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="background: #FF7900; color: #FFFFFF; font-size: 16px; font-weight: 600; padding: 17px 26px; border-radius: 6px; line-height: 1; min-height: 52px; display: inline-flex; align-items: center" style-hover="background:#E56D00;color:#111415">Avaliar meu empreendimento</a>
+</div>
+</div>
+</section>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ isSistema }}" hint-placeholder-val="{{ false }}">
+<div>
+<section style="background:#FFFFFF;border-bottom:1px solid #D8DCDE">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(48px,7vw,84px) clamp(20px,5vw,48px)">
+<p style="margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.16em;color:#111415">O SISTEMA</p>
+<h1 style="margin:0 0 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(40px,5vw,66px);line-height:1.07;letter-spacing:-.02em;max-width:16ch;text-wrap:pretty">Lajes prontas. Etapas integradas.</h1>
+<p style="margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:60ch;text-wrap:pretty">O Sistema SIPI conecta o fornecimento de lajes industrializadas à operação de montagem em edifícios de alvenaria estrutural.</p>
+</div>
+</section>
+
+<section style="background:#F4F3EF">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:flex-start">
+<div style="flex:1 1 360px;min-width:0">
+<h2 style="margin:0 0 20px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em;text-wrap:pretty">O que chega à obra.</h2>
+<p style="margin:0 0 28px;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:54ch;text-wrap:pretty">As lajes são produzidas industrialmente, com conduítes e caixas elétricas de teto incorporados conforme o projeto. A configuração das peças e suas interfaces são definidas para o empreendimento.</p>
+<ul style="margin:0 0 26px;padding:0;list-style:none;border-top:1px solid #D8DCDE;max-width:46ch">
+<li style="padding:13px 0;border-bottom:1px solid #D8DCDE;font-size:16.5px;line-height:1.5;display:flex;gap:12px;align-items:baseline"><span style="width:9px;height:9px;background:#FF7900;flex:0 0 auto;display:block"></span>Laje industrializada.</li>
+<li style="padding:13px 0;border-bottom:1px solid #D8DCDE;font-size:16.5px;line-height:1.5;display:flex;gap:12px;align-items:baseline"><span style="width:9px;height:9px;background:#FF7900;flex:0 0 auto;display:block"></span>Conduítes incorporados.</li>
+<li style="padding:13px 0;border-bottom:1px solid #D8DCDE;font-size:16.5px;line-height:1.5;display:flex;gap:12px;align-items:baseline"><span style="width:9px;height:9px;background:#FF7900;flex:0 0 auto;display:block"></span>Caixas elétricas de teto.</li>
+</ul>
+<p style="margin:0 0 14px;font-size:13px;line-height:1.5;color:#565E62">Representação ilustrativa. Configuração conforme projeto.</p>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#111415;border-left:3px solid #FF7900;padding-left:16px;max-width:52ch;text-wrap:pretty">A incorporação de conduítes e caixas não corresponde à execução completa das instalações elétricas.</p>
+</div>
+<div style="flex:1 1 400px;min-width:0;background:#FFFFFF;border:1px solid #D8DCDE;border-radius:8px;padding:clamp(12px,2vw,24px)">{{ pieceScene }}</div>
+</div>
+</section>
+
+<section style="background:#FFFFFF;border-top:1px solid #D8DCDE">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
+<h2 style="margin:0 0 clamp(32px,4vw,52px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em;text-wrap:pretty">Da análise do projeto à montagem.</h2>
+<div style="border-top:1px solid #D8DCDE">
+<div style="display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,48px);padding:clamp(22px,2.6vw,32px) 0;border-bottom:1px solid #D8DCDE">
+<span aria-hidden="true" style="flex:0 0 52px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#111415;padding-top:4px">01</span>
+<h3 style="flex:1 1 240px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(19px,1.6vw,23px);line-height:1.2">Engenharia e compatibilização</h3>
+<p style="flex:2 1 400px;margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:60ch;text-wrap:pretty">Análise das condições de aplicação e das interfaces do sistema, conforme o escopo do empreendimento.</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,48px);padding:clamp(22px,2.6vw,32px) 0;border-bottom:1px solid #D8DCDE">
+<span aria-hidden="true" style="flex:0 0 52px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#111415;padding-top:4px">02</span>
+<h3 style="flex:1 1 240px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(19px,1.6vw,23px);line-height:1.2">Fornecimento</h3>
+<p style="flex:2 1 400px;margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:60ch;text-wrap:pretty">Organização da fabricação e da entrega das lajes previstas em projeto.</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,48px);padding:clamp(22px,2.6vw,32px) 0;border-bottom:1px solid #D8DCDE">
+<span aria-hidden="true" style="flex:0 0 52px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#111415;padding-top:4px">03</span>
+<h3 style="flex:1 1 240px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(19px,1.6vw,23px);line-height:1.2">Transporte e logística</h3>
+<p style="flex:2 1 400px;margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:60ch;text-wrap:pretty">Planejamento da entrega das peças conforme a sequência de montagem.</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,48px);padding:clamp(22px,2.6vw,32px) 0;border-bottom:1px solid #D8DCDE">
+<span aria-hidden="true" style="flex:0 0 52px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#111415;padding-top:4px">04</span>
+<h3 style="flex:1 1 240px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(19px,1.6vw,23px);line-height:1.2">Içamento</h3>
+<p style="flex:2 1 400px;margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:60ch;text-wrap:pretty">Coordenação da movimentação das peças para seu posicionamento.</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,48px);padding:clamp(22px,2.6vw,32px) 0;border-bottom:1px solid #D8DCDE">
+<span aria-hidden="true" style="flex:0 0 52px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#111415;padding-top:4px">05</span>
+<h3 style="flex:1 1 240px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(19px,1.6vw,23px);line-height:1.2">Escoramento e montagem</h3>
+<p style="flex:2 1 400px;margin:0;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:60ch;text-wrap:pretty">Organização dos recursos e da instalação das lajes conforme o planejamento definido.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section style="background:#242A2D;color:#FFFFFF">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px);align-items:flex-start">
+<h2 style="flex:1 1 380px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em;text-wrap:pretty">Uma solução direcionada à alvenaria estrutural.</h2>
+<div style="flex:1 1 380px;min-width:0">
+<p style="margin:0 0 30px;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#B8C0C4;max-width:56ch;text-wrap:pretty">A oferta atual da SIPI é voltada a edifícios de alvenaria estrutural. A aplicação depende da avaliação do projeto, da localização e das condições da obra.</p>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="background:#FF7900;color:#111415;font-size:16px;font-weight:600;padding:17px 26px;border-radius:6px;line-height:1;min-height:52px;display:inline-flex;align-items:center" style-hover="background:#E56D00;color:#111415">Conversar sobre meu empreendimento</a>
+</div>
+</div>
+</section>
+
+<section style="background:#F4F3EF">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
+<h2 style="margin:0 0 clamp(28px,3.5vw,44px);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em">Perguntas frequentes</h2>
+<div style="border-top:1px solid #D8DCDE;max-width:880px">
+<details style="border-bottom:1px solid #D8DCDE"><summary style="cursor:pointer;list-style:none;padding:20px 0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.5vw,21px);line-height:1.25">A SIPI executa as paredes do edifício?</summary><p style="margin:0;padding:0 0 22px;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:64ch;text-wrap:pretty">A execução da alvenaria estrutural permanece com a construtora ou sua equipe contratada.</p></details>
+<details style="border-bottom:1px solid #D8DCDE"><summary style="cursor:pointer;list-style:none;padding:20px 0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.5vw,21px);line-height:1.25">A SIPI fornece somente a laje?</summary><p style="margin:0;padding:0 0 22px;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:64ch;text-wrap:pretty">A proposta integra o fornecimento das lajes ao transporte, à logística, ao içamento, ao escoramento e à montagem.</p></details>
+<details style="border-bottom:1px solid #D8DCDE"><summary style="cursor:pointer;list-style:none;padding:20px 0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.5vw,21px);line-height:1.25">O sistema utiliza escoramento?</summary><p style="margin:0;padding:0 0 22px;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:64ch;text-wrap:pretty">O escoramento faz parte do escopo descrito pela SIPI. Sua configuração e utilização seguem o planejamento técnico do empreendimento.</p></details>
+<details style="border-bottom:1px solid #D8DCDE"><summary style="cursor:pointer;list-style:none;padding:20px 0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.5vw,21px);line-height:1.25">As instalações elétricas chegam completas?</summary><p style="margin:0;padding:0 0 22px;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:64ch;text-wrap:pretty">As peças incorporam conduítes e caixas elétricas previstos em projeto. As demais atividades de instalação precisam ser consideradas no escopo da obra.</p></details>
+<details style="border-bottom:1px solid #D8DCDE"><summary style="cursor:pointer;list-style:none;padding:20px 0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.5vw,21px);line-height:1.25">Qual é o prazo de montagem?</summary><p style="margin:0;padding:0 0 22px;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:64ch;text-wrap:pretty">O prazo depende das características do empreendimento e das condições de execução. Ele deve ser definido após a análise da obra.</p></details>
+<details style="border-bottom:1px solid #D8DCDE"><summary style="cursor:pointer;list-style:none;padding:20px 0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,1.5vw,21px);line-height:1.25">Como iniciar uma avaliação?</summary><p style="margin:0;padding:0 0 22px;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:#565E62;max-width:64ch;text-wrap:pretty">Informe a localização, o sistema construtivo e a fase do empreendimento pelo formulário de contato.</p></details>
+</div>
+</div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEmpresa }}" hint-placeholder-val="{{ false }}">
+<div>
+<section style="background:#FFFFFF;border-bottom:1px solid #D8DCDE">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(48px,7vw,84px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:center">
+<div style="flex:1 1 400px;min-width:0">
+<p style="margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.16em;color:#111415">A EMPRESA</p>
+<h1 style="margin:0 0 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(40px,4.6vw,62px);line-height:1.07;letter-spacing:-.02em;text-wrap:pretty">Engenharia para integrar a execução das lajes.</h1>
+<p style="margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:58ch;text-wrap:pretty">A SIPI nasce com a proposta de conectar a fabricação industrial das lajes à sua implantação no canteiro. Sua atuação reúne o fornecimento dos componentes e a coordenação das etapas necessárias à montagem.</p>
+</div>
+<div style="flex:1 1 340px;min-width:0">{{ planesScene }}</div>
+</div>
+</section>
+<section style="background:#F4F3EF">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px)">
+<div style="border-top:1px solid #D8DCDE">
+<div style="display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,56px);padding:clamp(28px,3.4vw,44px) 0;border-bottom:1px solid #D8DCDE">
+<h2 style="flex:1 1 300px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(24px,2.4vw,32px);line-height:1.12;text-wrap:pretty">Uma visão integrada da entrega.</h2>
+<p style="flex:2 1 400px;margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:62ch;text-wrap:pretty">O planejamento considera as interfaces entre as peças, o transporte, os recursos de montagem e a evolução da alvenaria estrutural.</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,56px);padding:clamp(28px,3.4vw,44px) 0;border-bottom:1px solid #D8DCDE">
+<h2 style="flex:1 1 300px;margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(24px,2.4vw,32px);line-height:1.12;text-wrap:pretty">Foco em aplicação.</h2>
+<p style="flex:2 1 400px;margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:62ch;text-wrap:pretty">A oferta inicial é direcionada a construtoras com empreendimentos de alvenaria estrutural em São Paulo. Cada aplicação começa pela compreensão das condições do projeto e da obra.</p>
+</div>
+</div>
+<div style="padding-top:clamp(32px,4vw,48px)"><a href="#/sistema" onClick="{{ go }}" data-page="sistema" style="background:#FF7900;color:#111415;font-size:16px;font-weight:600;padding:17px 26px;border-radius:6px;line-height:1;min-height:52px;display:inline-flex;align-items:center" style-hover="background:#E56D00;color:#111415">Conhecer o Sistema SIPI</a></div>
+</div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isContato }}" hint-placeholder-val="{{ false }}">
+<div>
+<section style="background:#FFFFFF;border-bottom:1px solid #D8DCDE">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(48px,7vw,84px) clamp(20px,5vw,48px)">
+<p style="margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.16em;color:#111415">CONTATO</p>
+<h1 style="margin:0 0 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(40px,4.6vw,62px);line-height:1.07;letter-spacing:-.02em;max-width:18ch;text-wrap:pretty">Vamos avaliar seu empreendimento?</h1>
+<p style="margin:0;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:#565E62;max-width:54ch;text-wrap:pretty">Conte sobre sua obra para iniciar uma conversa técnica com a SIPI.</p>
+</div>
+</section>
+<section style="background:#F4F3EF">
+<div style="max-width:880px;margin:0 auto;padding:clamp(48px,7vw,80px) clamp(20px,5vw,48px)">
+<p style="margin:0 0 30px;padding:16px 18px;background:#FFFFFF;border:1px solid #D8DCDE;border-left:3px solid #FF7900;border-radius:6px;font-size:15.5px;line-height:1.5;color:#111415">Formulário de demonstração. O envio será habilitado na versão publicada.</p>
+<form onSubmit="{{ onSubmit }}" noValidate="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px">
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-nome" style="font-size:14.5px;font-weight:600">Nome</label><input id="f-nome" name="nome" type="text" value="{{ vNome }}" onChange="{{ onChange }}" aria-invalid="{{ iNome }}" aria-describedby="e-nome" style="{{ sNome }}"><sc-if value="{{ eNome }}" hint-placeholder-val="{{ false }}"><span id="e-nome" style="font-size:13.5px;color:#B23B00;line-height:1.4">{{ eNome }}</span></sc-if></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-empresa" style="font-size:14.5px;font-weight:600">Empresa</label><input id="f-empresa" name="empresa" type="text" value="{{ vEmpresa }}" onChange="{{ onChange }}" aria-invalid="{{ iEmpresa }}" aria-describedby="e-empresa" style="{{ sEmpresa }}"><sc-if value="{{ eEmpresa }}" hint-placeholder-val="{{ false }}"><span id="e-empresa" style="font-size:13.5px;color:#B23B00;line-height:1.4">{{ eEmpresa }}</span></sc-if></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-cargo" style="font-size:14.5px;font-weight:600">Cargo</label><input id="f-cargo" name="cargo" type="text" value="{{ vCargo }}" onChange="{{ onChange }}" style="{{ sPlain }}"></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-email" style="font-size:14.5px;font-weight:600">E-mail profissional</label><input id="f-email" name="email" type="email" value="{{ vEmail }}" onChange="{{ onChange }}" aria-invalid="{{ iEmail }}" aria-describedby="e-email" style="{{ sEmail }}"><sc-if value="{{ eEmail }}" hint-placeholder-val="{{ false }}"><span id="e-email" style="font-size:13.5px;color:#B23B00;line-height:1.4">{{ eEmail }}</span></sc-if></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-telefone" style="font-size:14.5px;font-weight:600">Telefone</label><input id="f-telefone" name="telefone" type="tel" value="{{ vTelefone }}" onChange="{{ onChange }}" style="{{ sPlain }}"></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-cidade" style="font-size:14.5px;font-weight:600">Cidade da obra</label><input id="f-cidade" name="cidade" type="text" value="{{ vCidade }}" onChange="{{ onChange }}" aria-invalid="{{ iCidade }}" aria-describedby="e-cidade" style="{{ sCidade }}"><sc-if value="{{ eCidade }}" hint-placeholder-val="{{ false }}"><span id="e-cidade" style="font-size:13.5px;color:#B23B00;line-height:1.4">{{ eCidade }}</span></sc-if></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-estado" style="font-size:14.5px;font-weight:600">Estado</label><input id="f-estado" name="estado" type="text" value="{{ vEstado }}" onChange="{{ onChange }}" aria-invalid="{{ iEstado }}" aria-describedby="e-estado" style="{{ sEstado }}"><sc-if value="{{ eEstado }}" hint-placeholder-val="{{ false }}"><span id="e-estado" style="font-size:13.5px;color:#B23B00;line-height:1.4">{{ eEstado }}</span></sc-if></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-sistema" style="font-size:14.5px;font-weight:600">Sistema construtivo</label><select id="f-sistema" name="sistema" value="{{ vSistema }}" onChange="{{ onChange }}" aria-invalid="{{ iSistema }}" aria-describedby="e-sistema" style="{{ sSistema }}"><option value=""></option><option value="Alvenaria estrutural">Alvenaria estrutural</option><option value="Outro sistema">Outro sistema</option><option value="Em definição">Em definição</option></select><sc-if value="{{ eSistema }}" hint-placeholder-val="{{ false }}"><span id="e-sistema" style="font-size:13.5px;color:#B23B00;line-height:1.4">{{ eSistema }}</span></sc-if></div>
+
+<div style="display:flex;flex-direction:column;gap:7px"><label for="f-fase" style="font-size:14.5px;font-weight:600">Fase do empreendimento</label><select id="f-fase" name="fase" value="{{ vFase }}" onChange="{{ onChange }}" aria-invalid="{{ iFase }}" aria-describedby="e-fase" style="{{ sFase }}"><option value=""></option><option value="Estudo de viabilidade">Estudo de viabilidade</option><option value="Projeto em desenvolvimento">Projeto em desenvolvimento</option><option value="Planejamento da obra">Planejamento da obra</option><option value="Obra em andamento">Obra em andamento</option></select><sc-if value="{{ eFase }}" hint-placeholder-val="{{ false }}"><span id="e-fase" style="font-size:13.5px;color:#B23B00;line-height:1.4">{{ eFase }}</span></sc-if></div>
+
+</div>
+<div style="display:flex;flex-direction:column;gap:7px;margin-top:22px"><label for="f-mensagem" style="font-size:14.5px;font-weight:600">Mensagem</label><textarea id="f-mensagem" name="mensagem" rows="5" value="{{ vMensagem }}" onChange="{{ onChange }}" style="{{ sArea }}"></textarea></div>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:18px;align-items:center">
+<button type="submit" style="background:#FF7900;color:#111415;border:none;font:600 16px Inter,sans-serif;padding:17px 28px;border-radius:6px;min-height:52px;cursor:pointer" style-hover="background:#E56D00">Solicitar avaliação</button>
+<sc-if value="{{ demoMsg }}" hint-placeholder-val="{{ false }}"><p role="status" style="margin:0;font-size:15px;line-height:1.5;color:#111415;max-width:44ch">{{ demoMsg }}</p></sc-if>
+</div>
+</form>
+</div>
+</section>
+</div>
+</sc-if>
+
+</main>
+
+<footer style="background:#FFFFFF;border-top:1px solid #D8DCDE">
+<div style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px);justify-content:space-between;align-items:flex-start">
+<div style="flex:1 1 300px;min-width:0">
+<img src="assets/sipi-logo.png" alt="SIPI — Sistema Integrado de Pavimento Industrializado" style="height:62px;width:auto;display:block;margin-bottom:18px">
+<p style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;line-height:1.15">SIPI</p>
+<p style="margin:0 0 10px;font-size:15px;line-height:1.55;color:#565E62">Sistema Integrado de Pavimento Industrializado.</p>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#565E62;max-width:44ch;text-wrap:pretty">Lajes prontas e montagem integrada para edifícios de alvenaria estrutural.</p>
+</div>
+<nav aria-label="Rodapé" style="flex:0 1 auto;display:flex;flex-direction:column;gap:12px">
+<a href="#/" onClick="{{ go }}" data-page="home" style="font-size:15px;font-weight:500">Início</a>
+<a href="#/sistema" onClick="{{ go }}" data-page="sistema" style="font-size:15px;font-weight:500">Sistema SIPI</a>
+<a href="#/empresa" onClick="{{ go }}" data-page="empresa" style="font-size:15px;font-weight:500">Empresa</a>
+<a href="#/contato" onClick="{{ go }}" data-page="contato" style="font-size:15px;font-weight:500">Contato</a>
+</nav>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#FF7900&quot;,&quot;options&quot;:[&quot;#FF7900&quot;,&quot;#E56D00&quot;,&quot;#F59B1E&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Desenhos vetoriais&quot;},&quot;showTechGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Desenhos vetoriais&quot;}}">
+const STEPS = [
+  {n:'01', t:'Projeto da construtora', d:'Leitura do projeto estrutural, arquitetônico, elétrico e hidráulico do empreendimento como base para a industrialização do pavimento.'},
+  {n:'02', t:'Compatibilização', d:'Integração das disciplinas e definição das interfaces com a alvenaria estrutural para preparar a industrialização do pavimento.'},
+  {n:'03', t:'Modulação das lajes', d:'Divisão do pavimento em painéis de laje, com definição das peças que serão produzidas e montadas no empreendimento.'},
+  {n:'04', t:'Instalações incorporadas', d:'Eletrodutos e caixas são incorporados às peças conforme os projetos compatibilizados, antecipando parte da infraestrutura para a fabricação.'},
+  {n:'05', t:'Plano de produção', d:'Produção das peças com rastreabilidade, sequência definida e controle conforme a lógica de industrialização do pavimento.'},
+  {n:'06', t:'Plano de montagem', d:'Cada peça é destinada à sua posição no edifício, permitindo uma sequência planejada de içamento e montagem do pavimento.'}
+];
+const INK='#111415', GRAF='#242A2D', LINE='#D8DCDE', SEC='#565E62';
+const TOP='#E6E9EA', RIGHT='#C2C8CB', LEFT='#A6AEB2';
+const PAGES=['home','sistema','empresa','contato'];
+const REQ=[['nome','Nome'],['empresa','Empresa'],['email','E-mail profissional'],['cidade','Cidade da obra'],['estado','Estado'],['sistema','Sistema construtivo'],['fase','Fase do empreendimento']];
+
+class Component extends DCLogic {
+  state = {
+    page:'home', step:0, playing:false, menu:false, reduced:false, webgl:true,
+    form:{nome:'',empresa:'',cargo:'',email:'',telefone:'',cidade:'',estado:'',sistema:'',fase:'',mensagem:''},
+    errors:{}, demo:''
+  };
+
+  componentDidMount(){
+    this.animRef = this.animRef || React.createRef();
+    this._lastPage = this.state.page;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.setState({reduced:mq.matches});
+    this._mq = () => this.setState({reduced:mq.matches});
+    if (mq.addEventListener) mq.addEventListener('change', this._mq);
+
+    this._hash = () => this.readHash();
+    window.addEventListener('hashchange', this._hash);
+    this.readHash();
+
+    // relógio central da cena: a UI só reage a mudanças relevantes
+    this._onState = (e) => {
+      const d = e.detail;
+      this._t = d.t; this._total = d.total; this._starts = d.starts; this._dur = d.dur; this._fu = d.fu;
+      const handle = document.getElementById('tl-handle');
+      if (handle) handle.style.left = (d.fu * 100).toFixed(2) + '%';
+      const strip = document.getElementById('tl-strip');
+      if (strip) { strip.setAttribute('aria-valuenow', Math.round(d.fu*100)); strip.setAttribute('aria-valuetext', 'Etapa ' + STEPS[d.step].n + ' de 06: ' + STEPS[d.step].t); }
+      for (let i=0;i<6;i++){
+        const seg = document.getElementById('tl-seg-'+i);
+        const dot = document.getElementById('tl-dot-'+i);
+        const num = document.getElementById('tl-num-'+i);
+        const nm = document.getElementById('tl-name-'+i);
+        const past = i < d.step, now = i === d.step;
+        if (seg){ seg.style.borderTopColor = (past || now) ? '#FF7900' : '#E3E5E4'; seg.setAttribute('aria-selected', now ? 'true' : 'false'); }
+        if (dot){ dot.style.background = (past || now) ? '#FF7900' : '#FFFFFF'; dot.style.borderColor = (past || now) ? '#FF7900' : '#B9BEC0'; }
+        if (num){ num.style.color = now ? '#111415' : past ? '#565E62' : '#8A9194'; }
+        if (nm){ nm.style.color = now ? '#111415' : past ? '#565E62' : '#8A9194'; nm.style.fontWeight = now ? '600' : '500'; }
+      }
+      if (d.step !== this.state.step || d.playing !== this.state.playing) this.setState({step:d.step, playing:d.playing});
+    };
+    window.addEventListener('sipi-state', this._onState);
+    this._onFail = () => this.setState({webgl:false});
+    window.addEventListener('sipi-failed', this._onFail);
+
+    this._vis = () => { if (document.hidden) this.pauseScene(); };
+    document.addEventListener('visibilitychange', this._vis);
+    this.observeScene();
+  }
+  componentDidUpdate(){
+    if (this._lastPage !== this.state.page){
+      this._lastPage = this.state.page;
+      this.observeScene();
+    }
+  }
+  componentWillUnmount(){
+    window.removeEventListener('hashchange', this._hash);
+    window.removeEventListener('sipi-state', this._onState);
+    window.removeEventListener('sipi-failed', this._onFail);
+    document.removeEventListener('visibilitychange', this._vis);
+    if (this._io) this._io.disconnect();
+  }
+  observeScene(){
+    if (this._io) this._io.disconnect();
+    if (!window.IntersectionObserver || !this.animRef || !this.animRef.current) return;
+    this._io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(!e.isIntersecting) this.pauseScene(); }); }, {threshold:0.12});
+    this._io.observe(this.animRef.current);
+  }
+
+  scene(){ return document.querySelector('sipi-process'); }
+  tlFraction(clientX){
+    const el = document.getElementById('tl-strip');
+    if (!el) return 0;
+    const r = el.getBoundingClientRect();
+    return Math.min(Math.max((clientX - r.left) / r.width, 0), 1);
+  }
+  tlSeek(clientX){
+    const sc = this.scene();
+    if (sc && sc.seekUniform) sc.seekUniform(this.tlFraction(clientX));
+  }
+  tlDown(e){
+    const el = document.getElementById('tl-strip');
+    if (!el) return;
+    e.preventDefault();
+    el.focus();
+    this.pauseScene();
+    this.tlSeek(e.clientX);
+    const move = (ev) => { ev.preventDefault(); this.tlSeek(ev.clientX); };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', up);
+    };
+    window.addEventListener('pointermove', move, {passive:false});
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+  }
+  tlKey(e){
+    const sc = this.scene();
+    if (!sc || !sc.seekUniform) return;
+    const fu = this._fu || 0, i = this.state.step;
+    let nf = null;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') nf = fu + 1/60;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') nf = fu - 1/60;
+    else if (e.key === 'PageUp') { this.gotoScene(Math.min(5, i+1)); e.preventDefault(); return; }
+    else if (e.key === 'PageDown') { this.gotoScene(Math.max(0, i-1)); e.preventDefault(); return; }
+    else if (e.key === 'Home') nf = 0;
+    else if (e.key === 'End') nf = 1;
+    if (nf === null) return;
+    e.preventDefault();
+    sc.seekUniform(nf);
+  }
+  pauseScene(){ const sc = this.scene(); if (sc && sc.pause) sc.pause(); }
+  playScene(){ const sc = this.scene(); if (sc && sc.play) sc.play(); }
+  gotoScene(i){ const sc = this.scene(); if (sc && sc.goToStep) sc.goToStep(i); else this.setState({step:i}); }
+
+  readHash(){
+    const h = (window.location.hash || '').replace(/^#\/?/, '').split('#')[0];
+    const p = PAGES.indexOf(h) >= 0 ? h : 'home';
+    if (p !== this.state.page) { this.pauseScene(); this.setState({page:p, menu:false}); }
+  }
+  navigate(p, e){
+    if (e) e.preventDefault();
+    this.pauseScene();
+    if (window.location.hash !== '#/'+ (p==='home'?'':p)) {
+      try { window.history.replaceState(null,'', '#/'+(p==='home'?'':p)); } catch(err){}
+    }
+    this.setState({page:p, menu:false});
+    window.scrollTo(0,0);
+  }
+
+  accent(){ return this.props.accentColor || '#FF7900'; }
+  grid(){ return this.props.showTechGrid !== false; }
+
+  iso(s, ox, oy){ return (x,y,z)=>[((x-y)*0.8660254*s+ox), ((x+y)*0.5*s - z*s + oy)]; }
+  pstr(p, pts){ return pts.map(a=>p(a[0],a[1],a[2]).map(v=>v.toFixed(1)).join(',')).join(' '); }
+  poly(key, p, pts, fill, stroke, sw, extra){
+    const o = Object.assign({key:key, points:this.pstr(p,pts), fill:fill, strokeLinejoin:'round'}, extra||{});
+    if (stroke){ o.stroke=stroke; o.strokeWidth = sw==null?0.9:sw; }
+    return React.createElement('polygon', o);
+  }
+  ln(key, p, a, b, stroke, sw, dash, op){
+    const A=p(a[0],a[1],a[2]), B=p(b[0],b[1],b[2]);
+    return React.createElement('line',{key:key,x1:A[0].toFixed(1),y1:A[1].toFixed(1),x2:B[0].toFixed(1),y2:B[1].toFixed(1),stroke:stroke,strokeWidth:sw==null?1:sw,strokeDasharray:dash,opacity:op,strokeLinecap:'round'});
+  }
+  box(key, p, x0,y0,x1,y1,z0,z1, cols, stroke, sw){
+    const c = cols || [TOP,RIGHT,LEFT];
+    return [
+      this.poly(key+'l', p, [[x0,y1,z1],[x1,y1,z1],[x1,y1,z0],[x0,y1,z0]], c[2], stroke===null?null:(stroke||GRAF), sw),
+      this.poly(key+'r', p, [[x1,y0,z1],[x1,y1,z1],[x1,y1,z0],[x1,y0,z0]], c[1], stroke===null?null:(stroke||GRAF), sw),
+      this.poly(key+'t', p, [[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]], c[0], stroke===null?null:(stroke||GRAF), sw)
+    ];
+  }
+  wall(key, p, x0,y0,x1,y1,h){
+    const out = this.box(key, p, x0,y0,x1,y1,0,h, ['#DFE3E5','#C0C6C9','#A4ACB0']);
+    for (let z=0.5; z<h-0.01; z+=0.5){
+      out.push(this.ln(key+'cl'+z, p, [x0,y1,z],[x1,y1,z], '#8B9398', 0.5, null, 0.75));
+      out.push(this.ln(key+'cr'+z, p, [x1,y0,z],[x1,y1,z], '#8B9398', 0.5, null, 0.75));
+    }
+    const lx = x1-x0, ly = y1-y0;
+    if (lx > 1) for (let i=1;i<Math.round(lx);i++){ if(i%2===0) continue; out.push(this.ln(key+'vl'+i,p,[x0+i,y1,0],[x0+i,y1,h],'#8B9398',0.5,null,0.6)); }
+    if (ly > 1) for (let i=1;i<Math.round(ly);i++){ if(i%2===0) continue; out.push(this.ln(key+'vr'+i,p,[x1,y0+i,0],[x1,y0+i,h],'#8B9398',0.5,null,0.6)); }
+    return out;
+  }
+  slab(key, p, x0,y0,x1,y1,z, acc){
+    const c = acc ? ['#FFA24D', '#E56D00', '#C25C00'] : ['#EDEFF0','#CBD1D4','#AFB7BB'];
+    return this.box(key, p, x0,y0,x1,y1,z,z+0.35, c);
+  }
+  layer(key, show, children, extra){
+    return React.createElement('g', {key:key, style:Object.assign({opacity: show?1:0, transition: this.state.reduced?'none':'opacity 600ms ease'}, extra||{})}, children);
+  }
+  groundGrid(p, nx, ny){
+    if (!this.grid()) return [];
+    const out=[];
+    for (let x=0;x<=nx;x+=2) out.push(this.ln('gx'+x,p,[x,0,0],[x,ny,0],LINE,0.8,'4 5',0.9));
+    for (let y=0;y<=ny;y+=2) out.push(this.ln('gy'+y,p,[0,y,0],[nx,y,0],LINE,0.8,'4 5',0.9));
+    out.push(this.ln('gax',p,[0,0,0],[0,0,7],LINE,0.8,'3 6',0.8));
+    out.push(this.ln('gay',p,[nx,0,0],[nx,0,6],LINE,0.8,'3 6',0.8));
+    out.push(this.ln('gaz',p,[0,ny,0],[0,ny,6],LINE,0.8,'3 6',0.8));
+    return out;
+  }
+  txt(key, x, y, s, size, fill, weight, anchor){
+    return React.createElement('text',{key:key,x:x,y:y,fontSize:size||21,fill:fill||INK,fontFamily:'Inter, sans-serif',fontWeight:weight||500,textAnchor:anchor||'start'}, s);
+  }
+
+  /* Sem WebGL: ilustração técnica neutra do pavimento, sem afirmar etapa. */
+  buildScene(){
+    const p = this.iso(30, 380, 250);
+    const A = this.accent();
+    const els = [];
+    els.push.apply(els, this.groundGrid(p, 12, 8));
+    [[0,0,12,0.5],[0,0,0.5,8],[5.75,0,6.25,8],[0,7.5,12,8],[11.5,0,12,8]].forEach((w,i)=>{
+      els.push.apply(els, this.wall('fw'+i, p, w[0], w[1], w[2], w[3], 3));
+    });
+    [[2,2],[4,2],[8,2],[10,2],[2,6],[4,6],[8,6],[10,6],[6,4]].forEach((sp,i)=>{
+      els.push(this.ln('fs'+i, p, [sp[0],sp[1],0], [sp[0],sp[1],2.95], SEC, 2, null, 0.95));
+      els.push(this.ln('fh'+i, p, [sp[0]-0.45,sp[1],2.95], [sp[0]+0.45,sp[1],2.95], SEC, 2, null, 0.95));
+    });
+    const panels = [
+      ['L01', 8, 4, 12, 8], ['L02', 4, 4, 8, 8], ['L03', 0, 4, 4, 8],
+      ['L04', 8, 0, 12, 4], ['L05', 4, 0, 8, 4], ['L06', 0, 0, 4, 4]
+    ];
+    panels.forEach((q,i)=>{
+      els.push.apply(els, this.slab('fp'+i, p, q[1]+0.06, q[2]+0.06, q[3]-0.06, q[4]-0.06, 3, i===0));
+    });
+    panels.forEach((q,i)=>{
+      const c = p((q[1]+q[3])/2, (q[2]+q[4])/2, 3.4);
+      els.push(React.createElement('rect',{key:'fr'+i,x:(c[0]-26).toFixed(1),y:(c[1]-15).toFixed(1),width:52,height:28,rx:4,fill:i===0?A:'#FFFFFF',stroke:i===0?'#C25C00':LINE,strokeWidth:1}));
+      els.push(this.txt('ft'+i, c[0], c[1]+6, q[0], 19, INK, 600, 'middle'));
+    });
+    return React.createElement('svg',{viewBox:'0 20 760 480',width:'100%',height:'auto',role:'img','aria-label':'Ilustração técnica do pavimento industrializado, com os painéis de laje L01 a L06 sobre a alvenaria estrutural e o escoramento.',style:{display:'block'}}, els);
+  }
+
+  buildHero(){
+    const p = this.iso(23, 300, 200);
+    const els = [];
+    const g=[];
+    for (let x=0;x<=12;x+=3) g.push(this.ln('hx'+x,p,[x,0,0],[x,8,0],'#3B4347',0.9,'4 6',1));
+    for (let y=0;y<=8;y+=2) g.push(this.ln('hy'+y,p,[0,y,0],[12,y,0],'#3B4347',0.9,'4 6',1));
+    g.push(this.ln('ha1',p,[0,0,0],[0,0,9],'#3B4347',0.9,'3 7',1));
+    g.push(this.ln('ha2',p,[12,0,0],[12,0,8],'#3B4347',0.9,'3 7',1));
+    els.push(React.createElement('g',{key:'hg'},g));
+    const dk=['#3A4246','#2E3538','#262C2F'];
+    [[0,0,12,0.5],[0,0,0.5,8],[5.75,0,6.25,8],[0,7.5,12,8],[11.5,0,12,8]].forEach((w,i)=>{
+      els.push.apply(els, this.box('hw'+i,p,w[0],w[1],w[2],w[3],0,3,dk,'#596266',0.9));
+    });
+    [[2,2],[4,2],[8,2],[2,6],[4,6],[8,6]].forEach((s,i)=>{
+      els.push(this.ln('hs'+i,p,[s[0],s[1],0],[s[0],s[1],2.95],'#6E7679',1.6,null,0.9));
+    });
+    [[0,0,5.9,3.95],[6.1,0,12,3.95],[0,4.05,5.9,8]].forEach((q,i)=>{
+      els.push.apply(els, this.box('hp'+i,p,q[0],q[1],q[2],q[3],3,3.35,['#4A5256','#3A4245','#30373A'],'#6E7679',0.9));
+    });
+    const A=this.accent();
+    els.push(this.ln('hmA',p,[15.4,-2,0],[15.4,-2,10.4],'#6E7679',2.4));
+    els.push(this.ln('hmB',p,[16.6,-2,0],[16.6,-2,10.4],'#6E7679',2.4));
+    for (let z=0; z<10.2; z+=1.3){
+      els.push(this.ln('hmx'+z,p,[15.4,-2,z],[16.6,-2,z+1.3],'#596165',1,null,0.9));
+      els.push(this.ln('hmy'+z,p,[16.6,-2,z],[15.4,-2,z+1.3],'#596165',1,null,0.9));
+    }
+    els.push(this.ln('hj',p,[16,-2,10.4],[8.4,6.6,10.4],'#6E7679',2.4));
+    els.push(this.ln('hjb',p,[16,-2,9.6],[8.4,6.6,9.6],'#596165',1.3,null,0.9));
+    els.push(this.ln('hjv',p,[9,6,10.4],[9,6,9.6],'#6E7679',1.3));
+    els.push(this.ln('hcv',p,[9,6,9.6],[9,6,7.1],'#8B9398',1.5));
+    [[6.1,4.05],[12,4.05],[12,8],[6.1,8]].forEach((c,i)=> els.push(this.ln('hsl'+i,p,[9,6,7.1],[c[0],c[1],6.1],'#8B9398',1.1)));
+    els.push.apply(els, this.box('hlift',p,6.1,4.05,12,8,5.75,6.1,['#FFA24D',A,'#C25C00'],'#7A3B00',0.9));
+    return React.createElement('svg',{viewBox:'0 -20 760 580',width:'100%',height:'auto',role:'img','aria-label':'Cena isométrica: paredes de alvenaria estrutural, lajes montadas e uma peça suspensa por cabos.',style:{display:'block'}}, els);
+  }
+
+  buildPiece(){
+    const p = this.iso(30, 300, 150);
+    const A = this.accent();
+    const els = [];
+    els.push.apply(els, this.groundGrid(p,10,7));
+    els.push.apply(els, this.slab('pc',p,1,1,9,6,0.4,false));
+    els.push(this.poly('pwn',p,[[3,2,0.76],[7.4,2,0.76],[7.4,5,0.76],[3,5,0.76]],'#FFFFFF',A,2,{strokeDasharray:'7 5'}));
+    [2.7,3.9].forEach((yy,i)=> els.push(this.ln('pcd'+i,p,[3.4,yy,0.78],[7,yy,0.78],A,2.4)));
+    els.push(this.ln('pcd3',p,[5.2,2.7,0.78],[5.2,4.6,0.78],A,2.4));
+    [[4.0,2.7],[6.6,3.9],[5.2,4.6]].forEach((c,i)=>{
+      const q=p(c[0],c[1],0.79);
+      els.push(React.createElement('rect',{key:'pb'+i,x:(q[0]-8).toFixed(1),y:(q[1]-6).toFixed(1),width:16,height:12,rx:2,fill:A,stroke:GRAF,strokeWidth:0.9}));
+    });
+    const a1=p(9,3.5,0.76), a2=p(3,2,0.76), a3=p(4.0,2.7,0.79);
+    els.push(React.createElement('line',{key:'l1',x1:a1[0].toFixed(1),y1:a1[1].toFixed(1),x2:(a1[0]+40).toFixed(1),y2:(a1[1]-40).toFixed(1),stroke:GRAF,strokeWidth:1}));
+    els.push(this.txt('t1',a1[0]+44,a1[1]-46,'Laje industrializada.',26,INK,600));
+    els.push(React.createElement('line',{key:'l2',x1:a2[0].toFixed(1),y1:a2[1].toFixed(1),x2:(a2[0]-30).toFixed(1),y2:(a2[1]-50).toFixed(1),stroke:GRAF,strokeWidth:1}));
+    els.push(this.txt('t2',a2[0]-34,a2[1]-56,'Conduítes incorporados.',26,INK,600,'end'));
+    els.push(React.createElement('line',{key:'l3',x1:a3[0].toFixed(1),y1:a3[1].toFixed(1),x2:(a3[0]-80).toFixed(1),y2:(a3[1]+118).toFixed(1),stroke:A,strokeWidth:1.2}));
+    els.push(this.txt('t3',a3[0]-84,a3[1]+126,'Caixas elétricas de teto.',26,INK,600,'end'));
+    return React.createElement('svg',{viewBox:'-80 -70 860 570',width:'100%',height:'auto',role:'img','aria-label':'Representação ilustrativa da laje industrializada com conduítes e caixas elétricas de teto incorporados.',style:{display:'block'}}, els);
+  }
+
+  buildPlanes(){
+    const p = this.iso(26, 250, 180);
+    const A = this.accent();
+    const els = [];
+    els.push.apply(els, this.groundGrid(p,9,6));
+    els.push.apply(els, this.box('e1',p,0.5,0.5,8.5,5.5,0.3,0.6,[TOP,RIGHT,LEFT]));
+    els.push.apply(els, this.box('e2',p,1.5,1.5,7.5,4.5,2.6,2.9,['#FFA24D',A,'#C25C00']));
+    els.push.apply(els, this.box('e3',p,0.5,0.5,8.5,5.5,4.9,5.2,[TOP,RIGHT,LEFT]));
+    [[0.5,0.5],[8.5,0.5],[8.5,5.5],[0.5,5.5]].forEach((c,i)=> els.push(this.ln('ev'+i,p,[c[0],c[1],0],[c[0],c[1],6.2],SEC,0.8,'4 6',0.6)));
+    return React.createElement('svg',{viewBox:'0 0 520 440',width:'100%',height:'auto',role:'img','aria-label':'Composição isométrica de planos sobrepostos derivada da linguagem da marca.',style:{display:'block'}}, els);
+  }
+
+  onChange(e){
+    const n = e.target.name, v = e.target.value;
+    this.setState(s=>({form:Object.assign({}, s.form, {[n]:v}), demo:''}));
+  }
+  onSubmit(e){
+    e.preventDefault();
+    const f = this.state.form, errs = {};
+    REQ.forEach(r=>{ if (!String(f[r[0]]||'').trim()) errs[r[0]] = 'Preencha este campo.'; });
+    if (!errs.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.trim())) errs.email = 'Informe um e-mail válido.';
+    const ok = Object.keys(errs).length === 0;
+    this.setState({errors:errs, demo: ok ? 'Os campos foram validados, mas os dados não foram enviados. Este formulário ainda está em demonstração.' : ''});
+    if (!ok){
+      const first = REQ.find(r=>errs[r[0]]);
+      const el = first && document.getElementById('f-'+first[0]);
+      if (el) el.focus({preventScroll:false});
+    }
+  }
+
+  inp(err){
+    return {font:'400 16px Inter, sans-serif',color:INK,background:'#FFFFFF',border:'1px solid '+(err?'#B23B00':LINE),borderRadius:'6px',padding:'13px 14px',minHeight:'50px',width:'100%'};
+  }
+  ctl(kind, disabled){
+    if (kind === 'play') return {font:'600 15px Inter, sans-serif',padding:'14px 22px',borderRadius:'6px',minHeight:'48px',cursor:'pointer',border:'1px solid #FF7900',background:'#FF7900',color:'#111415',flex:'0 0 auto'};
+    if (kind === 'ghost') return {font:'500 14.5px Inter, sans-serif',padding:'13px 14px',borderRadius:'6px',minHeight:'46px',cursor:disabled?'not-allowed':'pointer',opacity:disabled?0.38:1,border:'1px solid #E6E8E6',background:'#FFFFFF',color:'#111415'};
+    const A = this.accent();
+    const base = {font:'600 15px Inter, sans-serif',padding:'14px 20px',borderRadius:'6px',minHeight:'48px',cursor:disabled?'not-allowed':'pointer',opacity:disabled?0.4:1,border:'1px solid '+LINE,background:'#FFFFFF',color:INK};
+    if (kind==='play') return Object.assign(base,{background:A,color:INK,border:'1px solid '+A});
+    return base;
+  }
+
+  renderVals(){
+    const st = this.state, A = this.accent();
+    const cur = STEPS[st.step];
+    const f = st.form, er = st.errors;
+
+    return {
+      isHome: st.page==='home', isSistema: st.page==='sistema', isEmpresa: st.page==='empresa', isContato: st.page==='contato',
+      menuOpen: st.menu, toggleMenu: ()=>this.setState(s=>({menu:!s.menu})),
+      go: (e)=>this.navigate(e.currentTarget.dataset.page, e),
+      tlDown: (e)=>this.tlDown(e), tlKey: (e)=>this.tlKey(e),
+      tlNow: Math.round((this._fu||0)*100),
+      tlText: 'Etapa ' + STEPS[st.step].n + ' de 06: ' + STEPS[st.step].t,
+      goAnim: (e)=>{ e.preventDefault(); const el=this.animRef&&this.animRef.current; if(el){ window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-70, behavior: st.reduced?'auto':'smooth'}); } },
+      animRef: (this.animRef = this.animRef || React.createRef()),
+      hasWebgl: st.webgl, fallback: !st.webgl, scene: st.webgl ? null : this.buildScene(), heroScene: st.webgl ? null : this.buildHero(),
+      pieceScene: this.buildPiece(), planesScene: this.buildPlanes(),
+      stepNum: cur.n, stepTitle: cur.t, stepDesc: cur.d,
+      atFirst: st.step===0, atLast: st.step===5,
+      playLabel: st.playing ? 'Pausar' : 'Reproduzir',
+      prevStep: ()=>this.gotoScene(Math.max(0, st.step-1)),
+      nextStep: ()=>this.gotoScene(Math.min(5, st.step+1)),
+      togglePlay: ()=> st.playing ? this.pauseScene() : this.playScene(),
+      restart: ()=>this.gotoScene(0),
+      btnPrev: this.ctl('ghost', st.step===0), btnNext: this.ctl('ghost', st.step===5),
+      btnPlay: this.ctl('play', false), btnRestart: this.ctl('ghost', false),
+      tlStep0: ()=>this.gotoScene(0), tlStep1: ()=>this.gotoScene(1), tlStep2: ()=>this.gotoScene(2),
+      tlStep3: ()=>this.gotoScene(3), tlStep4: ()=>this.gotoScene(4), tlStep5: ()=>this.gotoScene(5),
+      onChange: (e)=>this.onChange(e), onSubmit: (e)=>this.onSubmit(e),
+      vNome:f.nome, vEmpresa:f.empresa, vCargo:f.cargo, vEmail:f.email, vTelefone:f.telefone,
+      vCidade:f.cidade, vEstado:f.estado, vSistema:f.sistema, vFase:f.fase, vMensagem:f.mensagem,
+      eNome:er.nome||'', eEmpresa:er.empresa||'', eEmail:er.email||'', eCidade:er.cidade||'',
+      eEstado:er.estado||'', eSistema:er.sistema||'', eFase:er.fase||'',
+      iNome:er.nome?'true':'false', iEmpresa:er.empresa?'true':'false', iEmail:er.email?'true':'false',
+      iCidade:er.cidade?'true':'false', iEstado:er.estado?'true':'false', iSistema:er.sistema?'true':'false', iFase:er.fase?'true':'false',
+      sNome:this.inp(er.nome), sEmpresa:this.inp(er.empresa), sEmail:this.inp(er.email), sCidade:this.inp(er.cidade),
+      sEstado:this.inp(er.estado), sSistema:this.inp(er.sistema), sFase:this.inp(er.fase), sPlain:this.inp(false),
+      sArea:Object.assign(this.inp(false),{minHeight:'128px',lineHeight:1.55,resize:'vertical'}),
+      demoMsg: st.demo
+    };
+  }
+}
+</script>
+</body>
+</html>
