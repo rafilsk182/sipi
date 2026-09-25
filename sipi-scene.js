@@ -484,7 +484,7 @@ class SceneElement extends HTMLElement {
       this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
     } catch (e) { this.fail(e); return; }
     if (!this.renderer || !this.renderer.getContext()) { this.fail(new Error('sem WebGL')); return; }
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1.25 : 1.5));
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
