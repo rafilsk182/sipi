@@ -1,0 +1,60 @@
+# SIPI Engenharia
+
+> A SIPI Engenharia desenvolve o Sistema Integrado de Pavimento Industrializado (SIPI), uma solução para industrialização da execução de pavimentos em edifícios de alvenaria estrutural.
+
+## Sistema SIPI
+
+O Sistema SIPI integra:
+- engenharia e compatibilização
+- planejamento
+- fabricação industrial
+- transporte e logística
+- içamento
+- escoramento
+- montagem
+
+## Laje pronta
+
+A proposta da SIPI é entregar a laje pronta dentro de uma operação integrada. Não se trata apenas do fornecimento de uma pré-laje.
+
+A SIPI complementa a operação da construtora e não executa a alvenaria estrutural.
+
+## Instalações
+
+Eletrodutos e caixas elétricas previstos em projeto podem ser incorporados às peças durante a fabricação.
+
+As passagens hidráulicas são previstas por meio de reservas na peça; a tubulação hidráulica é executada posteriormente.
+
+## Aplicação
+
+O foco inicial é em edifícios residenciais de alvenaria estrutural no estado de São Paulo.
+
+A aplicação depende da análise técnica do projeto, fase da obra, logística e condições de implantação.
+
+## Perguntas frequentes
+
+- O Sistema SIPI fornece pré-laje?
+- Qual é a diferença entre laje pronta e pré-laje?
+- A SIPI fornece somente as peças da laje?
+- A SIPI executa a alvenaria estrutural?
+- As instalações elétricas chegam completas?
+- O Sistema SIPI utiliza escoramento?
+- Quanto tempo leva a montagem da laje pronta?
+- Como saber se o Sistema SIPI pode ser usado na minha obra?
+
+## Páginas
+
+- [Início](https://sipiengenharia.com.br/): visão geral do Sistema SIPI, etapas, benefícios e perguntas frequentes
+- [Sistema SIPI](https://sipiengenharia.com.br/#/sistema): o que é a laje pronta, diferença para a pré-laje e como o sistema funciona
+- [Empresa](https://sipiengenharia.com.br/#/empresa): atuação da SIPI Engenharia e foco inicial de aplicação
+- [Avaliação de empreendimento](https://sipiengenharia.com.br/#/contato): envio dos dados da obra para avaliação técnica
+
+## Contato
+
+- E-mail: contato@sipiengenharia.com.br
+- Telefone: (11) 93727 - 1020
+- Endereço: Praça Félix, 08 - Vila Silvia, São Paulo - SP
+
+## Website
+
+https://sipiengenharia.com.br/

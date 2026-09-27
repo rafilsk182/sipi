@@ -1,0 +1,45 @@
+# Apache (KingHost) — cache, compressão e segurança do site SIPI.
+# Cada bloco só é aplicado se o módulo existir no servidor. O GitHub Pages ignora este arquivo.
+
+# Não publicar a pasta de build, se ela for enviada por engano.
+RedirectMatch 404 ^/_build(/|$)
+
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType text/plain .txt
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript text/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+
+  # HTML: sempre revalidar.
+  <FilesMatch "\.html?$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Arquivos originais sem hash no nome: 1 dia.
+  <FilesMatch "\.(png|jpe?g|gif|mp4|webp|avif)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+  <FilesMatch "\.(txt|xml)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+  # Arquivos com versão/hash no nome (assets/opt, vendor, fonts) ou referenciados
+  # com ?v=hash (support.js, sipi-scene.js): 1 ano, imutáveis. <If> é aplicado
+  # depois de <FilesMatch>, então prevalece sobre as regras acima.
+  <If "%{REQUEST_URI} =~ m#^/(assets/opt|vendor|fonts)/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <If "%{REQUEST_URI} =~ m#^/(support|sipi-scene)\.js$#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+</IfModule>

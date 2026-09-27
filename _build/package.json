@@ -1,0 +1,15 @@
+{
+  "name": "sipi-site-build",
+  "private": true,
+  "type": "module",
+  "description": "Build de produção do site SIPI a partir do export do Claude Design.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "esbuild": "^0.25.12",
+    "ffmpeg-static": "^5.2.0",
+    "puppeteer-core": "^24.0.0",
+    "sharp": "^0.34.0"
+  }
+}

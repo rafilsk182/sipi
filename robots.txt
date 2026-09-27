@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sipiengenharia.com.br/sitemap.xml
